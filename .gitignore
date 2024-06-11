@@ -1,0 +1,21 @@
+# emacs temp
+*~
+\#*\#
+
+# bins and deps
+*.o
+*.d
+*.a
+*.dSYM
+
+**/TAGS
+
+# tests
+
+**/tests/
+
+**/a.out
+push_swap
+
+
+valgrind-out.txt
