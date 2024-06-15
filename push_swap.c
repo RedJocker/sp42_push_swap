@@ -1,37 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                         :+:      :+:    :+:  */
+/*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maurodri </var/spool/mail/redjocker>       +#+  +:+       +#+        */
+/*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/10 17:50:17 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/10 18:33:17 by maurodri         ###   ########.fr       */
+/*   Created: 2024/06/14 22:44:51 by maurodri          #+#    #+#             */
+/*   Updated: 2024/06/14 23:33:45 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 
+#include "collection/ft_stack.h"
+
 int	main(void)
 {
-	printf("");
-	return (0);
-}
-
-char	*a(void)
-{
-	int		c;
-	char	*a;
-
-	c = 10;
-	*a = '1';
-	if (1)
-	{
-
-	}
-	else
-	{
-		
-	}
+	
+	printf("hey");
 	return (0);
 }

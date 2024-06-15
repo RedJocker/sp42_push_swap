@@ -1,4 +1,3 @@
----
 AlignAfterOpenBracket: DontAlign
 AlignEscapedNewlines: Left
 AlignOperands: AlignAfterOperator
