@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:47:43 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/14 23:03:21 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/16 00:27:23 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void		rr(t_two_stks *stks);
 void		rra(t_two_stks *stks);
 void		rrb(t_two_stks *stks);
 void	    rrr(t_two_stks *stks);
-t_two_stks	*t_two_stks_new();
-void		t_two_stks_destroy(t_two_stks *stks);
+t_two_stks	*two_stks_new();
+void		two_stks_destroy(t_two_stks *stks);
+void		two_stks_print(t_two_stks *stks);
 
 #endif

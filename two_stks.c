@@ -6,30 +6,42 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:46:38 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/14 23:58:48 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/16 00:28:42 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "collection/ft_stack.h"
+#include "ft_stdio.h"
 #include "ft_util.h"
 #include "two_stks.h"
 #include <stdlib.h>
 
-t_two_stks	*t_two_stks_new()
+t_two_stks	*two_stks_new()
 {
 	t_two_stks	*stks;
 
 	stks = malloc(sizeof(t_two_stks));
-	stks->a = ft_stack_new((void (*) (void *)) ft_nop);
-	stks->b = ft_stack_new((void (*) (void *)) ft_nop);
+	stks->a = ft_stack_new((t_consumer) ft_nop);
+	stks->b = ft_stack_new((t_consumer) ft_nop);
 	return stks;
 }
 
-void	t_two_stks_destroy(t_two_stks *stks)
+void	two_stks_destroy(t_two_stks *stks)
 {
 	ft_stack_destroy(stks->a);
 	ft_stack_destroy(stks->b);
+	free(stks);
 }
+
+
+void	two_stks_print(t_two_stks *stks)
+{
+	ft_putstr("A::");
+	ft_stack_print(stks->a, (t_consumer) ft_int_print);
+	ft_putstr("B::");
+	ft_stack_print(stks->b, (t_consumer) ft_int_print);
+}
+
 // swap a
 void	sa(t_two_stks *stks)
 {
@@ -55,7 +67,7 @@ void	sb(t_two_stks *stks)
 	elem0 = ft_stack_pop(stks->b);
 	elem1 = ft_stack_pop(stks->b);
 	stks->b = ft_stack_push(stks->b, elem0);
-	stks->b = ft_stack_push(stks->b, elem0);
+	stks->b = ft_stack_push(stks->b, elem1);
 }
 
 // swap a and b

@@ -6,7 +6,7 @@
 #    By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/05 20:20:04 by maurodri          #+#    #+#              #
-#    Updated: 2024/06/14 23:54:50 by maurodri         ###   ########.fr        #
+#    Updated: 2024/06/15 23:46:44 by maurodri         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -82,9 +82,7 @@ re: fclean all
 test_two_stack: two_stks.c $(LIBFT) 
 	echo $(INCLUDES)
 	$(CC) $(CFLAGS) test.c $^ $(INCLUDES) -o test
-	./test
 
 test: test_two_stack
-	echo "end"
-
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./test
 -include $(DEP_FILES)
