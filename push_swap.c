@@ -25,6 +25,5 @@ int	main(void)
 	if (is_parseok)
 		(void) psargs;
 	psargs_clean(&psargs);
-	return (0);
-	
+	return (0);	
 }
