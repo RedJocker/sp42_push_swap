@@ -6,16 +6,18 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:57:22 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/16 02:01:34 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:48:18 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "two_stks.h"
 #include <assert.h>
+#include <limits.h>
 #include "collection/ft_stack.h"
 #include "collection/ft_arraylist.h"
 #include "ft_util.h"
 #include "ft_stdio.h"
+#include "psargs.h"
 
 void test_sa()
 {
@@ -723,6 +725,174 @@ void test_rrr()
 	two_stks_destroy(stks);
 }
 
+void	test_psargs_0(void)
+{
+	char		*str = "";
+	t_psargs	psargs;
+	int			is_parseok;
+
+	ft_putendl("\n::test_psargs_0::");
+	ft_putstr("str: ");
+	ft_putendl(str);
+	is_parseok = psargs_init(&psargs, str);
+	assert(is_parseok != 0);
+	assert(psargs.len == 0);
+	psargs_clean(&psargs);
+	ft_putendl("OK");
+}
+
+void	test_psargs_1(void)
+{
+	char		*str = "1 2 3";
+	t_psargs	psargs;
+	int			is_parseok;
+
+	ft_putendl("\n::test_psargs_1::");
+	ft_putstr("str: ");
+	ft_putendl(str);
+	is_parseok = psargs_init(&psargs, str);
+	assert(is_parseok != 0);
+	assert(psargs.len == 3);
+	assert(psargs.iarr[0] == 1);
+	assert(psargs.iarr[1] == 2);
+	assert(psargs.iarr[2] == 3);
+	psargs_clean(&psargs);
+	ft_putendl("OK");
+}
+
+void	test_psargs_2(void)
+{
+	char		*str = "300 20 1 -5 -60 -800";
+	t_psargs	psargs;
+	int			is_parseok;
+
+	ft_putendl("\n::test_psargs_2::");
+	ft_putstr("str: ");
+	ft_putendl(str);
+	is_parseok = psargs_init(&psargs, str);
+	assert(is_parseok != 0);
+	assert(psargs.len == 6);
+	assert(psargs.iarr[0] == 300);
+	assert(psargs.iarr[1] == 20);
+	assert(psargs.iarr[2] == 1);
+	assert(psargs.iarr[3] == -5);
+	assert(psargs.iarr[4] == -60);
+	assert(psargs.iarr[5] == -800);
+	psargs_clean(&psargs);
+	ft_putendl("OK");
+}
+
+void	test_psargs_3(void)
+{
+	char		*str = "300 20 1 abc -60 -800";
+	t_psargs	psargs;
+	int			is_parseok;
+
+	ft_putendl("\n::test_psargs_3::");
+	ft_putstr("str: ");
+	ft_putendl(str);
+	is_parseok = psargs_init(&psargs, str);
+	assert(is_parseok == 0);
+	psargs_clean(&psargs);
+	ft_putendl("OK");
+}
+
+void	test_psargs_4(void)
+{
+	char		*str = "2147483647 -2147483648";
+	t_psargs	psargs;
+	int			is_parseok;
+
+	ft_putendl("\n::test_psargs_4::");
+	ft_putstr("str: ");
+	ft_putendl(str);
+	is_parseok = psargs_init(&psargs, str);
+	assert(is_parseok != 0);
+	assert(psargs.len == 2);
+	assert(psargs.iarr[0] == INT_MAX);
+	assert(psargs.iarr[1] == INT_MIN);
+	psargs_clean(&psargs);
+	ft_putendl("OK");
+}
+
+void	test_psargs_5(void)
+{
+	char		*str = "2147483648";
+	t_psargs	psargs;
+	int			is_parseok;
+
+	ft_putendl("\n::test_psargs_5::");
+	ft_putstr("str: ");
+	ft_putendl(str);
+	is_parseok = psargs_init(&psargs, str);
+	assert(is_parseok == 0);
+	psargs_clean(&psargs);
+	ft_putendl("OK");
+}
+
+
+void	test_psargs_6(void)
+{
+	char		*str = "-2147483649";
+	t_psargs	psargs;
+	int			is_parseok;
+
+	ft_putendl("\n::test_psargs_6::");
+	ft_putstr("str: ");
+	ft_putendl(str);
+	is_parseok = psargs_init(&psargs, str);
+	assert(is_parseok == 0);
+	psargs_clean(&psargs);
+	ft_putendl("OK");
+}
+
+
+void	test_psargs_7(void)
+{
+	char		*str = "10a";
+	t_psargs	psargs;
+	int			is_parseok;
+
+	ft_putendl("\n::test_psargs_7::");
+	ft_putstr("str: ");
+	ft_putendl(str);
+	is_parseok = psargs_init(&psargs, str);
+	assert(is_parseok == 0);
+	psargs_clean(&psargs);
+	ft_putendl("OK");
+}
+
+void	test_psargs_8(void)
+{
+	char		*str = "2a3";
+	t_psargs	psargs;
+	int			is_parseok;
+
+	ft_putendl("\n::test_psargs_8::");
+	ft_putstr("str: ");
+	ft_putendl(str);
+	is_parseok = psargs_init(&psargs, str);
+	assert(is_parseok == 0);
+	psargs_clean(&psargs);
+	ft_putendl("OK");
+}
+
+
+void	test_psargs_9(void)
+{
+	char		*str = "1 2 3 2a2";
+	t_psargs	psargs;
+	int			is_parseok;
+
+	ft_putendl("\n::test_psargs_9::");
+	ft_putstr("str: ");
+	ft_putendl(str);
+	is_parseok = psargs_init(&psargs, str);
+	assert(is_parseok == 0);
+	psargs_clean(&psargs);
+	ft_putendl("OK");
+}
+
 
 int main(void)
 {
@@ -738,5 +908,15 @@ int main(void)
 	test_rra();
 	test_rrb();	
 	test_rrr();
+	test_psargs_0();
+	test_psargs_1();
+	test_psargs_2();	
+	test_psargs_3();
+	test_psargs_4();
+	test_psargs_5();
+	test_psargs_6();
+	test_psargs_7();
+	test_psargs_8();
+	test_psargs_9();
 	ft_putendl("\n==E N D==\n");
 }
