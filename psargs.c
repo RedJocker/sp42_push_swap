@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 20:02:28 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/20 02:46:28 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/20 02:49:03 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	has_duplicates(t_psargs *psargs)
 	int			*curr;
 
 	hset = ft_hashset_new(
-		int_hashfun, (t_intbifun) ft_int_equal, (t_consumer) ft_nop);
+			int_hashfun, (t_intbifun) ft_int_equal, (t_consumer) ft_nop);
 	i = -1;
 	while (++i < psargs->len)
 	{
@@ -67,7 +67,7 @@ int	psargs_init(t_psargs *out_psargs, char *in_arg)
 	{
 		if (is_ok)
 			out_psargs->iarr[out_psargs->len] = (
-				ft_atoi_strict(&is_ok, sarr[out_psargs->len]));
+					ft_atoi_strict(&is_ok, sarr[out_psargs->len]));
 		free(sarr[out_psargs->len]);
 		out_psargs->len++;
 	}

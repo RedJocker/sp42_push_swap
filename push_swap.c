@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:44:51 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/20 00:46:07 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/20 14:37:43 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,5 @@ int	main(void)
 		(void) psargs;
 	psargs_clean(&psargs);
 	return (0);
+	
 }
