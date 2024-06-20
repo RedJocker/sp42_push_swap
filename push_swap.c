@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:44:51 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/19 22:10:06 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/20 00:46:07 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	main(void)
 
 	ft_strlcpy(str, "10 20 30", 100);
 	is_parseok = psargs_init(&psargs, str);
-	printf("hey");
+	if (is_parseok)
+		(void) psargs;
 	psargs_clean(&psargs);
 	return (0);
 }

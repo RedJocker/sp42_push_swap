@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:57:22 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/19 21:48:18 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/20 02:36:01 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -893,6 +893,84 @@ void	test_psargs_9(void)
 	ft_putendl("OK");
 }
 
+void	test_psargs_10(void)
+{
+	char		*str = "1 1";
+	t_psargs	psargs;
+	int			is_parseok;
+
+	ft_putendl("\n::test_psargs_10::");
+	ft_putstr("str: ");
+	ft_putendl(str);
+	is_parseok = psargs_init(&psargs, str);
+	assert(is_parseok == 0);
+	psargs_clean(&psargs);
+	ft_putendl("OK");
+}
+
+void	test_psargs_11(void)
+{
+	char		*str = "-10 -10";
+	t_psargs	psargs;
+	int			is_parseok;
+
+	ft_putendl("\n::test_psargs_11::");
+	ft_putstr("str: ");
+	ft_putendl(str);
+	is_parseok = psargs_init(&psargs, str);
+	assert(is_parseok == 0);
+	psargs_clean(&psargs);
+	ft_putendl("OK");
+}
+
+
+void	test_psargs_12(void)
+{
+	char		*str = "1 2 1";
+	t_psargs	psargs;
+	int			is_parseok;
+
+	ft_putendl("\n::test_psargs_12::");
+	ft_putstr("str: ");
+	ft_putendl(str);
+	is_parseok = psargs_init(&psargs, str);
+	assert(is_parseok == 0);
+	psargs_clean(&psargs);
+	ft_putendl("OK");
+}
+
+
+void	test_psargs_13(void)
+{
+	char		*str = "-10 50 900 22 51 222 30 40 0 999 1000 5001 2 3 7 10 -10";
+	t_psargs	psargs;
+	int			is_parseok;
+
+	ft_putendl("\n::test_psargs_13::");
+	ft_putstr("str: ");
+	ft_putendl(str);
+	is_parseok = psargs_init(&psargs, str);
+	assert(is_parseok == 0);
+	psargs_clean(&psargs);
+	ft_putendl("OK");
+}
+
+void	test_psargs_14(void)
+{
+	char		*str = "-10 50 900 22 51 222 30 40 0 999 1000 5001 2 3 7 10 -1";
+	t_psargs	psargs;
+	int			is_parseok;
+
+	ft_putendl("\n::test_psargs_14::");
+	ft_putstr("str: ");
+	ft_putendl(str);
+	is_parseok = psargs_init(&psargs, str);
+	assert(is_parseok == 1);
+	assert(psargs.len == 17);
+	psargs_clean(&psargs);
+	ft_putendl("OK");
+}
+
 
 int main(void)
 {
@@ -906,11 +984,11 @@ int main(void)
 	test_rb();
 	test_rr();
 	test_rra();
-	test_rrb();	
+	test_rrb();
 	test_rrr();
 	test_psargs_0();
 	test_psargs_1();
-	test_psargs_2();	
+	test_psargs_2();
 	test_psargs_3();
 	test_psargs_4();
 	test_psargs_5();
@@ -918,5 +996,10 @@ int main(void)
 	test_psargs_7();
 	test_psargs_8();
 	test_psargs_9();
+	test_psargs_10();
+	test_psargs_11();
+	test_psargs_12();
+	test_psargs_13();
+	test_psargs_14();
 	ft_putendl("\n==E N D==\n");
 }

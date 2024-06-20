@@ -6,13 +6,46 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 20:02:28 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/19 22:24:52 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/20 02:46:28 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_string.h"
 #include "ft_memlib.h"
 #include "psargs.h"
+#include "collection/ft_hashset.h"
+#include "ft_util.h"
+
+static size_t	int_hashfun(void *ele)
+{
+	int	*e;
+
+	e = (int *) ele;
+	return ((size_t) *(e));
+}
+
+static int	has_duplicates(t_psargs *psargs)
+{
+	t_hashset	hset;
+	int			i;
+	int			*curr;
+
+	hset = ft_hashset_new(
+		int_hashfun, (t_intbifun) ft_int_equal, (t_consumer) ft_nop);
+	i = -1;
+	while (++i < psargs->len)
+	{
+		curr = psargs->iarr + i;
+		hset = ft_hashset_add(hset, curr);
+		if (ft_hashset_len(hset) != (size_t) i + 1)
+		{
+			ft_hashset_destroy(hset);
+			return (1);
+		}
+	}
+	ft_hashset_destroy(hset);
+	return (0);
+}
 
 int	psargs_init(t_psargs *out_psargs, char *in_arg)
 {
@@ -39,6 +72,7 @@ int	psargs_init(t_psargs *out_psargs, char *in_arg)
 		out_psargs->len++;
 	}
 	free(sarr);
+	is_ok = is_ok && (!has_duplicates(out_psargs));
 	return (is_ok);
 }
 
