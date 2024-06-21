@@ -6,24 +6,29 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:44:51 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/20 14:45:44 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/20 22:13:47 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "ft_string.h"
 #include "psargs.h"
+#include "ft_stdio.h"
 
-int	main(void)
+int	main(int argc, char *argv[])
 {
-	char		str[100];
+	
+
 	t_psargs	psargs;
 	int			is_parseok;
-
-	ft_strlcpy(str, "10 20 30", 100);
-	is_parseok = psargs_init(&psargs, str);
+	
+	if (argc < 2)
+		return (1);
+	is_parseok = psargs_init(&psargs, argv + 1);
 	if (is_parseok)
 		(void) psargs;
+	else
+		ft_puterrl("Error");
 	psargs_clean(&psargs);
-	return (0);
+	return (!is_parseok);
 }
