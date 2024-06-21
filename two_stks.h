@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:47:43 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/19 22:14:11 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/21 00:10:05 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define TWO_STKS_H
 
 # include "collection/ft_stack.h"
+# include "psargs.h"
+# include "ft_util.h" 
 
 typedef struct s_two_stks
 {
@@ -32,8 +34,9 @@ void		rr(t_two_stks *stks);
 void		rra(t_two_stks *stks);
 void		rrb(t_two_stks *stks);
 void		rrr(t_two_stks *stks);
+void		two_stks_sort(t_two_stks *stks, t_consumer sort_impl);
 t_two_stks	*two_stks_new(void);
 void		two_stks_destroy(t_two_stks *stks);
 void		two_stks_print(t_two_stks *stks);
-
+void		two_stks_init(t_two_stks *stks, t_psargs *psargs);
 #endif

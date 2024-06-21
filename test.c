@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:57:22 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/20 23:01:53 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/20 23:55:01 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "ft_util.h"
 #include "ft_stdio.h"
 #include "psargs.h"
+#include "push_swap.h"
 
 void test_sa()
 {
@@ -1005,6 +1006,88 @@ void	test_psargs_14(void)
 	ft_putendl("OK");
 }
 
+void test_empty_argv_fails()
+{
+	char *argv[] = {"./push_swap"};
+	int argc = sizeof(argv) / sizeof(char *);
+	int ret;
+
+	ft_putendl("\n::test_empty_argv_fails::");
+	ret = testable_main(argc, argv);
+	assert(ret != 0);
+}
+
+void test_invalid_argv_fails()
+{
+	char *argv[] = {"./push_swap", "abc"};
+	int argc = sizeof(argv) / sizeof(char *);
+	int ret;
+
+	ft_putendl("\n::test_empty_argv_fails::");
+	ret = testable_main(argc, argv);
+	assert(ret != 0);
+}
+
+void test_two_stck_init()
+{
+	/* char *argv[] = {"./push_swap", "abc"}; */
+	/* int argc = sizeof(argv) / sizeof(char *); */
+	/* int ret; */
+	char *str[] = {
+		"-10",
+		"50",
+		"900",
+		"22",
+		"51",
+		"222",
+		"30",
+		"40",
+		"0",
+		"999",
+		"1000",
+		"5001",
+		"2",
+		"3",
+		"7",
+		"10",
+		"-1"};
+	int	ints[] = {
+		-10,
+		50,
+		900,
+		22,
+		51,
+		222,
+		30,
+		40,
+		0,
+		999,
+		1000,
+		5001,
+		2,
+		3,
+		7,
+		10,
+		-1};
+	t_psargs	psargs;
+	t_two_stks	*stks;
+	int			len;
+	int			i;
+	
+	ft_putendl("\n:: test_two_stck_init::");
+	len = (int) sizeof(str) / sizeof(char *);
+	psargs_init(&psargs, str, sizeof(str) / sizeof(char *));
+	stks = two_stks_new();
+	two_stks_init(stks, &psargs);
+	two_stks_print(stks);
+	assert(ft_stack_len(stks->a) == (size_t) len);
+	i = -1;
+	while (++i < len)
+		assert(*((int *) ft_stack_pop(stks->a)) == ints[i]);
+	psargs_clean(&psargs);
+	two_stks_destroy(stks);
+}
+
 int main(void)
 {
 	ft_putendl("\n==S T A R T==");
@@ -1034,5 +1117,8 @@ int main(void)
 	test_psargs_12();
 	test_psargs_13();
 	test_psargs_14();
+	test_empty_argv_fails();
+	test_invalid_argv_fails();
+	test_two_stck_init();
 	ft_putendl("\n==E N D==\n");
 }
