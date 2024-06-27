@@ -6,16 +6,18 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:44:51 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/21 00:15:23 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/26 21:26:01 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include "collection/ft_stack.h"
 #include "ft_string.h"
 #include "psargs.h"
 #include "ft_stdio.h"
 #include "two_stks.h"
 #include "ft_util.h"
+#include "limits.h"
 
 void	two_stcks_sort(t_two_stks *stks, t_consumer sort_impl)
 {

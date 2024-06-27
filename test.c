@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:57:22 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/20 23:55:01 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/26 22:54:19 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include "ft_stdio.h"
 #include "psargs.h"
 #include "push_swap.h"
+#include "stat.h"
 
 void test_sa()
 {
@@ -1088,6 +1089,41 @@ void test_two_stck_init()
 	two_stks_destroy(stks);
 }
 
+void test_stat()
+{
+	t_stat		stat;
+	int			i;
+	t_stack     stk;
+	int			arr[10];
+	
+	ft_putendl("\n:: test_stat::");
+	stat_init(&stat);
+	assert(stat.len == 0);
+	assert(stat.is_sorted == 1);
+	assert(stat.last == INT_MIN);
+	assert(stat.max == INT_MIN);
+	assert(stat.min == INT_MAX);
+	assert(stat.avg == 0);
+	stk = ft_stack_new((t_consumer) ft_nop);
+	i = 0;
+	while (++i <= 10)
+	{
+		arr[i - 1] = i;
+		ft_stack_push(stk, arr + i - 1);
+	}
+	ft_stack_print(stk, (t_consumer) ft_int_print);
+	stat_compute(&stat, stk);
+	stat_print(&stat);
+	assert(stat.len == 10);
+	assert(stat.is_sorted == 1);
+	assert(stat.last == 10);
+	assert(stat.max == 10);
+	assert(stat.min == 1);
+	assert(stat.avg - 5.5 < 0.1 && stat.avg - 5.5 > -0.1);
+	ft_stack_destroy(stk);
+}
+
+
 int main(void)
 {
 	ft_putendl("\n==S T A R T==");
@@ -1120,5 +1156,6 @@ int main(void)
 	test_empty_argv_fails();
 	test_invalid_argv_fails();
 	test_two_stck_init();
+	test_stat();
 	ft_putendl("\n==E N D==\n");
 }

@@ -6,7 +6,7 @@
 #    By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/05 20:20:04 by maurodri          #+#    #+#              #
-#    Updated: 2024/06/21 00:09:08 by maurodri         ###   ########.fr        #
+#    Updated: 2024/06/26 22:28:51 by maurodri         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -81,7 +81,7 @@ fclean: clean
 
 re: fclean all
 
-test_build: two_stks.c psargs.c push_swap.c $(LIBFT)
+test_build: two_stks.c psargs.c push_swap.c stat.c $(LIBFT)
 	echo $(INCLUDES)
 	$(CC) $(CFLAGS) test.c $^ $(INCLUDES) -o test
 
