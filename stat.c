@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 21:25:36 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/26 23:01:09 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/26 23:32:58 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	stat_item_process(int *item, t_stat *stat)
 			stat->is_sorted && *item > stat->last);
 	stat->last = *item;
 	stat->len++;
-	stat_print(stat);
 }
 
 void	stat_compute(t_stat *out_stat, t_stack stk)

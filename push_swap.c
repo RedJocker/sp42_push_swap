@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:44:51 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/26 21:26:01 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/26 23:33:12 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "two_stks.h"
 #include "ft_util.h"
 #include "limits.h"
+#include "stat.h"
 
 void	two_stcks_sort(t_two_stks *stks, t_consumer sort_impl)
 {
@@ -26,6 +27,31 @@ void	two_stcks_sort(t_two_stks *stks, t_consumer sort_impl)
 
 void	two_stcks_sort_naive(t_two_stks *stks)
 {
+	t_stat	stat;
+	//int		pivot;
+	int		*curr; 
+	
+	stat_init(&stat);
+	stat_compute(&stat, stks->a);
+	stat_print(&stat);
+	curr = (int *) ft_stack_peek(stks->a);
+	while (*curr != stat.last)
+	{
+		printf("curr %d\n", *curr);
+		if (*curr <= (int) stat.avg)
+		{
+			pb(stks);
+		}
+		else
+		{
+			ra(stks);
+		}
+		two_stks_print(stks);
+		curr = (int *) ft_stack_peek(stks->a);
+	}										  
+	
+	
+	
 	(void) stks;
 }
 

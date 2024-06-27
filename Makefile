@@ -6,7 +6,7 @@
 #    By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/05 20:20:04 by maurodri          #+#    #+#              #
-#    Updated: 2024/06/26 22:28:51 by maurodri         ###   ########.fr        #
+#    Updated: 2024/06/26 23:20:49 by maurodri         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -16,7 +16,8 @@ LIBFT := $(LIBFT_DIR)/libft.a
 FILES := main.c \
 	push_swap.c \
 	two_stks.c \
-	psargs.c
+	psargs.c \
+	stat.c 
 
 # BONUS_FILES := main_bonus.c \
 # 			envp_bonus.c \
