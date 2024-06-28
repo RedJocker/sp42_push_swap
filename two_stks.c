@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:46:38 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/21 00:14:26 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/27 23:14:36 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ void	two_stks_destroy(t_two_stks *stks)
 
 void	two_stks_print(t_two_stks *stks)
 {
-	ft_putstr("A::");
-	ft_stack_print(stks->a, (t_consumer) ft_int_print);
-	ft_putstr("B::");
-	ft_stack_print(stks->b, (t_consumer) ft_int_print);
+	ft_puterr("A::");
+	ft_stack_printerr(stks->a, (t_consumer) ft_int_printerr);
+	ft_puterr("B::");
+	ft_stack_printerr(stks->b, (t_consumer) ft_int_printerr);
 }
 
 void	two_stks_init(t_two_stks *stks, t_psargs *psargs)
@@ -64,39 +64,37 @@ void	two_stks_sort(t_two_stks *stks, t_consumer sort_impl)
 	sort_impl(stks);
 }
 
-// swap a
-void	sa(t_two_stks *stks)
+void	stack_swap(t_stack stk)
 {
 	void	*elem0;
 	void	*elem1;
 
-	if (ft_stack_len(stks->a) < 2)
-		return ;
-	elem0 = ft_stack_pop(stks->a);
-	elem1 = ft_stack_pop(stks->a);
-	stks->a = ft_stack_push(stks->a, elem0);
-	stks->a = ft_stack_push(stks->a, elem1);
+	elem0 = ft_stack_pop(stk);
+	elem1 = ft_stack_pop(stk);
+	stk = ft_stack_push(stk, elem0);
+	stk = ft_stack_push(stk, elem1);
+}
+
+// swap a
+void	sa(t_two_stks *stks)
+{
+	stack_swap(stks->a);
+	ft_putendl("sa");
 }
 
 // swap b
 void	sb(t_two_stks *stks)
 {
-	void	*elem0;
-	void	*elem1;
-
-	if (ft_stack_len(stks->b) < 2)
-		return ;
-	elem0 = ft_stack_pop(stks->b);
-	elem1 = ft_stack_pop(stks->b);
-	stks->b = ft_stack_push(stks->b, elem0);
-	stks->b = ft_stack_push(stks->b, elem1);
+	stack_swap(stks->b);
+	ft_putendl("sb");
 }
 
 // swap a and b
 void	ss(t_two_stks *stks)
 {
-	sa(stks);
-	sb(stks);
+	stack_swap(stks->a);
+	stack_swap(stks->b);
+	ft_putendl("ss");
 }
 
 // push a
@@ -104,10 +102,9 @@ void	pa(t_two_stks *stks)
 {
 	void	*elem;
 
-	if (ft_stack_len(stks->b) < 1)
-		return ;
 	elem = ft_stack_pop(stks->b);
 	stks->a = ft_stack_push(stks->a, elem);
+	ft_putendl("pa");
 }
 
 // push b
@@ -115,66 +112,70 @@ void	pb(t_two_stks *stks)
 {
 	void	*elem;
 
-	if (ft_stack_len(stks->a) < 1)
-		return ;
 	elem = ft_stack_pop(stks->a);
 	stks->b = ft_stack_push(stks->b, elem);
+	ft_putendl("pb");
 }
+
+void	stack_rotate(t_stack stk)
+{
+	void	*elem;
+
+	elem = ft_stack_pop(stk);
+	stk = ft_stack_push_back(stk, elem);
+}
+
 
 // rotate a
 void	ra(t_two_stks *stks)
 {
-	void	*elem;
-
-	if (ft_stack_len(stks->a) < 1)
-		return ;
-	elem = ft_stack_pop(stks->a);
-	stks->a = ft_stack_push_back(stks->a, elem);
+	stack_rotate(stks->a);
+	ft_putendl("ra");
 }
 
 // rotate b
 void	rb(t_two_stks *stks)
 {
-	void	*elem;
-
-	if (ft_stack_len(stks->b) < 1)
-		return ;
-	elem = ft_stack_pop(stks->b);
-	stks->b = ft_stack_push_back(stks->b, elem);
+	stack_rotate(stks->b);
+	ft_putendl("rb");
 }
 
 // rotate a and b
 void	rr(t_two_stks *stks)
 {
-	ra(stks);
-	rb(stks);
+	stack_rotate(stks->a);
+	stack_rotate(stks->b);
+	ft_putendl("rr");
 }
+
+
+void	stack_rev_rotate(t_stack stk)
+{
+	void	*elem;
+
+	elem = ft_stack_pop_back(stk);
+	stk = ft_stack_push(stk, elem);
+}
+
 
 // reverse rotate a
 void	rra(t_two_stks *stks)
 {
-	void	*elem;
-
-	if (ft_stack_len(stks->a) < 1)
-		return ;
-	elem = ft_stack_pop_back(stks->a);
-	stks->a = ft_stack_push(stks->a, elem);
+	stack_rev_rotate(stks->a);
+	ft_putendl("RRA");
 }
 
 // reverse rotate b
 void	rrb(t_two_stks *stks)
 {
-	void	*elem;
-
-	if (ft_stack_len(stks->b) < 1)
-		return ;
-	elem = ft_stack_pop_back(stks->b);
-	stks->b = ft_stack_push(stks->b, elem);
+	stack_rev_rotate(stks->b);
+	ft_putendl("RRB");
 }
 
 // reverse rotate a and b
 void	rrr(t_two_stks *stks)
 {
-	rra(stks);
-	rrb(stks);
+	stack_rev_rotate(stks->a);
+	stack_rev_rotate(stks->b);
+	ft_putendl("RRR");
 }
