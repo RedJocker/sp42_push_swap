@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:46:38 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/27 23:14:36 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/29 23:45:03 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,14 +162,14 @@ void	stack_rev_rotate(t_stack stk)
 void	rra(t_two_stks *stks)
 {
 	stack_rev_rotate(stks->a);
-	ft_putendl("RRA");
+	ft_putendl("rra");
 }
 
 // reverse rotate b
 void	rrb(t_two_stks *stks)
 {
 	stack_rev_rotate(stks->b);
-	ft_putendl("RRB");
+	ft_putendl("rrb");
 }
 
 // reverse rotate a and b
@@ -177,5 +177,5 @@ void	rrr(t_two_stks *stks)
 {
 	stack_rev_rotate(stks->a);
 	stack_rev_rotate(stks->b);
-	ft_putendl("RRR");
+	ft_putendl("rrr");
 }

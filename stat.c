@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 21:25:36 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/29 17:24:43 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/30 01:10:29 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ void	stat_init(t_stat *out_stat)
 	out_stat->is_revsorted = 1;
 }
 
-// avg calculation section5
-// on https://jrsinclair.com/articles/2019/five-ways-to-average-with-js-reduce/ 
+ 
 void	stat_item_process(int *item, t_stat *stat)
 {
 	
@@ -65,7 +64,13 @@ void	stat_item_process(int *item, t_stat *stat)
 	stat->len++;
 }
 
-void	stat_compute(t_stat *out_stat, t_stack stk)
+void	stat_compute(t_stat *stat, t_stack stk)
 {
-	ft_stack_foreacharg(stk, (t_biconsumer) stat_item_process, out_stat);
+	ft_stack_foreacharg(stk, (t_biconsumer) stat_item_process, stat);
+	if (stat->len > 2)
+	{
+		stat->avg = ((stat->len * stat->avg) - stat->min) / (stat->len - 1);
+		stat->avg = (
+			((stat->len - 1) * stat->avg) - stat->max) / (stat->len - 2);
+	}
 }

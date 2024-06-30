@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:44:51 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/29 22:49:12 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/30 01:07:51 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,24 @@ void	push_a_and_check(t_two_stks *stks)
 		return (swap_a_maybe_b(stks));
 }
 
+void	sort_less_than4(t_two_stks *stks, t_stat *stat, int **curr)
+{
+	stat->is_sorted = 1;
+	if (stat->len == 2)
+			return (swap_a_maybe_b(stks));
+	curr[0] = ft_stack_peek(stks->a);
+	curr[1] = ft_stack_peek_last(stks->a);
+	if (*curr[0] == stat->min)
+		return (swap_a_maybe_b(stks), rotate_a_maybe_b(stks));
+	if (*curr[0] == stat->max && *curr[1] == stat->min)
+		return (swap_a_maybe_b(stks), rra(stks));
+	if (*curr[0] == stat->max)
+		return (rotate_a_maybe_b(stks));
+	if (*curr[1] == stat->max)
+		return (swap_a_maybe_b(stks));
+	return (rra(stks));
+}
+
 
 void	process_stacka(t_two_stks *stks, t_stat *stat)
 {
@@ -106,10 +124,10 @@ void	process_stacka(t_two_stks *stks, t_stat *stat)
 	int		limit[2];
 
 	ft_puterrl("processing StackA");
-	while (!stat->is_sorted)
+	while (!stat->is_sorted && stat->len > 3)
 	{
 		limit[0] = 0;
-		limit[1] = *((int *)ft_stack_peek_last(stks->a));
+		limit[1] = *((int *) ft_stack_peek_last(stks->a));
 		curr[0] = (int *) ft_stack_peek(stks->a);
 		while (*curr[0] != limit[1])
 		{
@@ -153,7 +171,12 @@ void	process_stacka(t_two_stks *stks, t_stat *stat)
 		stat_init(stat);
 		stat_compute(stat, stks->a);
 		stat_print(stat);
-	} 
+	}
+	if (!stat->is_sorted)
+	{
+		sort_less_than4(stks, stat, curr);
+		two_stks_print(stks);
+	}
 }
 
 void	process_stackb(t_two_stks *stks, t_stat *stat)
