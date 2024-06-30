@@ -6,21 +6,18 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:44:51 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/28 00:33:47 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/29 22:49:12 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+
 #include "collection/ft_stack.h"
-#include "ft_string.h"
 #include "psargs.h"
 #include "ft_stdio.h"
 #include "two_stks.h"
 #include "ft_util.h"
 #include "limits.h"
 #include "stat.h"
-
-
 
 void	two_stcks_sort(t_two_stks *stks, t_consumer sort_impl)
 {
@@ -73,7 +70,6 @@ void	rotate_a_maybe_b(t_two_stks *stks)
 	ra(stks);
 }
 
-
 void	push_b_and_check(t_two_stks *stks)
 {
 	int		*curr[2]; 
@@ -84,13 +80,6 @@ void	push_b_and_check(t_two_stks *stks)
 	if (curr[1] && *curr[0] < *curr[1])
 		return (rotate_b_maybe_a(stks));
 	curr[1] = (int *) ft_stack_peek_next(stks->b);
-	ft_puterr("curr[1]: ");
-	if (curr[1])	
-		ft_putnbr_fd(*curr[1], 2);
-	ft_puterr(" curr[0]: ");
-	if (curr[0])
-		ft_putnbr_fd(*curr[0], 2);
-	ft_puterrl("");
 	if (curr[1] && *curr[0] < *curr[1])
 		return (swap_b_maybe_a(stks));
 }
@@ -111,101 +100,142 @@ void	push_a_and_check(t_two_stks *stks)
 }
 
 
-void	process_stacka(t_two_stks *stks)
+void	process_stacka(t_two_stks *stks, t_stat *stat)
 {
-	t_stat	stat;
 	int		*curr[2];
 	int		limit[2];
 
-	stat_init(&stat);
-	stat_compute(&stat, stks->a);
-	stat_print(&stat);
-	limit[0] = 0;
-	limit[1] = stat.last;
-	while (ft_stack_len(stks->a) > 1)
+	ft_puterrl("processing StackA");
+	while (!stat->is_sorted)
 	{
+		limit[0] = 0;
+		limit[1] = *((int *)ft_stack_peek_last(stks->a));
 		curr[0] = (int *) ft_stack_peek(stks->a);
 		while (*curr[0] != limit[1])
 		{
-			if (*curr[0] <= (int) stat.avg)
+			if (*curr[0] <= (int) stat->avg)
 			{
 				curr[1] = ft_stack_peek_next(stks->a);
 				if (*curr[1] < *curr[0])
 					swap_a_maybe_b(stks);
 				else
+				{
 					push_b_and_check(stks);
+					if (limit[0] == 0 && ft_stack_peek_last(stks->a) == curr[1])
+					{
+						limit[1] = *((int *) ft_stack_peek_last(stks->a));
+						limit[0] = limit[1] > stat->avg;
+						ft_puterr("limit ");
+						ft_int_printerr(limit + 0);
+						ft_puterr(" ");
+						ft_int_printerr(limit + 1);
+						ft_puterrl("");
+					}
+				}
 			}
 			else
 			{
-				ra(stks);
+				rotate_a_maybe_b(stks);
 				if (limit[0] == 0)
 				{
-					limit[0] = 1;
 					limit[1] = *((int *) ft_stack_peek_last(stks->a));
+					limit[0] = limit[1] > stat->avg;
+					ft_puterr("limit ");
+					ft_int_printerr(limit + 0);
+					ft_puterr(" ");
+					ft_int_printerr(limit + 1);
+					ft_puterrl("");
 				}
 			}
 			two_stks_print(stks);
 			curr[0] = (int *) ft_stack_peek(stks->a);
 		}
-		stat_init(&stat);
-		stat_compute(&stat, stks->a);
-		stat_print(&stat);
-		limit[0] = 0;
-		limit[1] = stat.last;
-	}
+		stat_init(stat);
+		stat_compute(stat, stks->a);
+		stat_print(stat);
+	} 
 }
 
-void	process_stackb(t_two_stks *stks)
+void	process_stackb(t_two_stks *stks, t_stat *stat)
 {
-	t_stat	stat;
 	int		*curr[2];
+	int		limit[2];
 
-	stat_init(&stat);
-	stat_compute(&stat, stks->b);
-	stat_print(&stat);
-	while (ft_stack_len(stks->b) > 1)
+	ft_puterrl("processing StackB");
+	stat_init(stat);
+	stat_compute(stat, stks->b);
+	stat_print(stat);
+	while (!stat->is_revsorted)
 	{
+		limit[0] = 0;
+		limit[1] = *((int *)ft_stack_peek_last(stks->b));
 		curr[0] = (int *) ft_stack_peek(stks->b);
-		while (*curr[0] != stat.last)
+		while (*curr[0] != limit[1])
 		{
-			if (*curr[0] >= (int) stat.avg)
+			if (*curr[0] >= (int) stat->avg)
 			{
 				curr[1] = ft_stack_peek_next(stks->b);
 				if (*curr[1] > *curr[0])
 					swap_b_maybe_a(stks);
 				else
+				{
 					push_a_and_check(stks);
+					if (limit[0] == 0 && ft_stack_peek_last(stks->b) == curr[1])
+					{
+						limit[1] = *((int *) ft_stack_peek_last(stks->b));
+						limit[0] = limit[1] < stat->avg;
+						ft_puterr("limit ");
+						ft_int_printerr(limit + 0);
+						ft_puterr(" ");
+						ft_int_printerr(limit + 1);
+						ft_puterrl("");
+					}
+				}
 			}
 			else
 			{
-				rb(stks);
+				rotate_b_maybe_a(stks);
+				if (limit[0] == 0)
+				{
+					limit[1] = *((int *) ft_stack_peek_last(stks->b));
+					limit[0] = limit[1] < stat->avg;
+					ft_puterr("limit ");
+					ft_int_printerr(limit + 0);
+					ft_puterr(" ");
+					ft_int_printerr(limit + 1);
+					ft_puterrl("");
+				}
 			}
 			two_stks_print(stks);
 			curr[0] = (int *) ft_stack_peek(stks->b);
 		}
-		stat_init(&stat);
-		stat_compute(&stat, stks->b);
-		stat_print(&stat);
+		stat_init(stat);
+		stat_compute(stat, stks->b);
+		stat_print(stat);
 	}
-	push_a_and_check(stks);
 	two_stks_print(stks);
 }
 	
 void	two_stcks_sort_naive(t_two_stks *stks)
 {
-	t_stat	stat;
+	t_stat	stat[2];
 
 	two_stks_print(stks);
-	stat_init(&stat);
-	stat_compute(&stat, stks->a);
-	while (!stat.is_sorted)
+	stat_init(stat + 0);
+	stat_compute(stat + 0, stks->a);
+	stat_print(stat + 0);
+	while (!stat[0].is_sorted)
 	{
-		process_stacka(stks);
-		process_stackb(stks);
-		stat_init(&stat);
-		stat_compute(&stat, stks->a);
-		stat_print(&stat);
+		process_stacka(stks, stat + 0);
+		process_stackb(stks, stat + 1);
+		if (stat[0].is_sorted && stat[1].is_revsorted)
+		{
+			while (ft_stack_len(stks->b) > 0)
+				pa(stks);
+		}
 	}
+	ft_puterrl("Finish");
+	two_stks_print(stks);
 }
 
 int	testable_main(int argc, char *argv[])

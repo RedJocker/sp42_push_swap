@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 21:27:22 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/26 22:55:36 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/29 17:06:34 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ typedef struct s_stat
 	int		min;
 	int		max;
 	double	avg;
-	int		last;
+	int		*last;
 	int		len;
 	int		is_sorted;
+	int		is_revsorted;
 }	t_stat;
 
 void	stat_init(t_stat *out_stat);

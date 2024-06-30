@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 21:25:36 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/28 00:27:10 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/29 17:24:43 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "ft_util.h"
 #include "limits.h"
 #include "stat.h"
+#include "ft_util.h"
 
 void	stat_print(t_stat *stat)
 {
@@ -25,9 +26,11 @@ void	stat_print(t_stat *stat)
 	ft_puterr("\nlen: ");
 	ft_putnbr_fd(stat->len, 2);
 	ft_puterr("\nlast: ");
-	ft_putnbr_fd(stat->last, 2);
+	ft_int_printerr(stat->last);
 	ft_puterr("\nis_sorted: ");
 	ft_putnbr_fd(stat->is_sorted, 2);
+	ft_puterr("\nis_revsorted: ");
+	ft_putnbr_fd(stat->is_revsorted, 2);
 	ft_puterr("\navg: ");
 	ft_putnbr_fd((int) stat->avg, 2);
 	ft_puterrl("");
@@ -38,9 +41,10 @@ void	stat_init(t_stat *out_stat)
 	out_stat->min = INT_MAX;
 	out_stat->max = INT_MIN;
 	out_stat->avg = 0;
-	out_stat->last = INT_MIN;
+	out_stat->last = NULL;
 	out_stat->len = 0;
 	out_stat->is_sorted = 1;
+	out_stat->is_revsorted = 1;
 }
 
 // avg calculation section5
@@ -55,9 +59,9 @@ void	stat_item_process(int *item, t_stat *stat)
 	if (*item > stat->max)
 		stat->max = *item;
 	stat->avg = (*item + (stat->len * stat->avg)) / (stat->len + 1);
-	stat->is_sorted = (
-			stat->is_sorted && *item > stat->last);
-	stat->last = *item;
+	stat->is_sorted = !stat->last || (stat->is_sorted && *item > *stat->last);
+	stat->is_revsorted = !stat->last || (stat->is_revsorted && *item < *stat->last);
+	stat->last = item;
 	stat->len++;
 }
 

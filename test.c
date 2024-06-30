@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:57:22 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/26 22:54:19 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/29 18:07:42 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,17 +231,6 @@ void test_pa()
 						stks->b,
 						expected_b, 
 					(t_intbifun) ft_int_equal) != 0);
-	pa(stks);
-	ft_putendl("pa()");
-	two_stks_print(stks);
-	assert(ft_arraylist_equal(
-						stks->a,
-						expected_a, 
-					(t_intbifun) ft_int_equal) != 0);
-	assert(ft_arraylist_equal(
-						stks->b,
-						expected_b, 
-					(t_intbifun) ft_int_equal) != 0);
 	ft_stack_destroy(expected_a);
 	ft_stack_destroy(expected_b);
 	two_stks_destroy(stks);
@@ -296,17 +285,6 @@ void test_pb()
 					(t_intbifun) ft_int_equal) != 0);
 	ft_stack_pop(expected_a);
 	expected_b = ft_stack_push(expected_b, arr + 0);
-	pb(stks);
-	ft_putendl("pb()");
-	two_stks_print(stks);
-	assert(ft_arraylist_equal(
-						stks->b,
-						expected_b, 
-					(t_intbifun) ft_int_equal) != 0);
-	assert(ft_arraylist_equal(
-						stks->a,
-						expected_a, 
-					(t_intbifun) ft_int_equal) != 0);
 	pb(stks);
 	ft_putendl("pb()");
 	two_stks_print(stks);
@@ -1016,6 +994,7 @@ void test_empty_argv_fails()
 	ft_putendl("\n::test_empty_argv_fails::");
 	ret = testable_main(argc, argv);
 	assert(ret != 0);
+	ft_putendl("OK");
 }
 
 void test_invalid_argv_fails()
@@ -1024,9 +1003,10 @@ void test_invalid_argv_fails()
 	int argc = sizeof(argv) / sizeof(char *);
 	int ret;
 
-	ft_putendl("\n::test_empty_argv_fails::");
+	ft_putendl("\n::test_invalid_argv_fails::");
 	ret = testable_main(argc, argv);
 	assert(ret != 0);
+	ft_putendl("OK");
 }
 
 void test_two_stck_init()
@@ -1100,13 +1080,14 @@ void test_stat()
 	stat_init(&stat);
 	assert(stat.len == 0);
 	assert(stat.is_sorted == 1);
-	assert(stat.last == INT_MIN);
+	assert(stat.is_revsorted == 1);
+	assert(stat.last == NULL);
 	assert(stat.max == INT_MIN);
 	assert(stat.min == INT_MAX);
 	assert(stat.avg == 0);
 	stk = ft_stack_new((t_consumer) ft_nop);
-	i = 0;
-	while (++i <= 10)
+	i = 11;
+	while (--i > 0)
 	{
 		arr[i - 1] = i;
 		ft_stack_push(stk, arr + i - 1);
@@ -1116,7 +1097,24 @@ void test_stat()
 	stat_print(&stat);
 	assert(stat.len == 10);
 	assert(stat.is_sorted == 1);
-	assert(stat.last == 10);
+	assert(stat.is_revsorted == 0);
+	assert(*stat.last == 10);
+	assert(stat.max == 10);
+	assert(stat.min == 1);
+	assert(stat.avg - 5.5 < 0.1 && stat.avg - 5.5 > -0.1);
+	while (ft_stack_pop(stk) != NULL) ;
+	i = -1;
+	while (++i < 10)
+		ft_stack_push(stk, arr + i);
+	ft_putendl("");
+	ft_stack_print(stk, (t_consumer) ft_int_print);
+	stat_init(&stat);
+	stat_compute(&stat, stk);
+	stat_print(&stat);
+	assert(stat.len == 10);
+	assert(stat.is_sorted == 0);
+	assert(stat.is_revsorted == 1);
+	assert(*stat.last == 1);
 	assert(stat.max == 10);
 	assert(stat.min == 1);
 	assert(stat.avg - 5.5 < 0.1 && stat.avg - 5.5 > -0.1);
