@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:44:51 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/30 01:07:51 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/06/30 01:37:30 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,53 +24,70 @@ void	two_stcks_sort(t_two_stks *stks, t_consumer sort_impl)
 	sort_impl(stks);
 }
 
-void	swap_a_maybe_b(t_two_stks *stks)
+void	swap_a_maybe_b(t_two_stks *stks, int *blimit)
 {
 	int		*curr[2]; 
 	
 	curr[0] = (int *) ft_stack_peek(stks->b);
 	curr[1] = (int *) ft_stack_peek_next(stks->b);
 	if (curr[0] && curr[1] && *curr[0] < *curr[1])
-		ss(stks);
+	{
+			ss(stks);
+			if (blimit && blimit[0] != 0 && blimit[1] == *curr[0])
+			blimit[1] = *((int*)ft_stack_peek(stks->b));
+	}
 	else
 		sa(stks);
 }
 
-void	swap_b_maybe_a(t_two_stks *stks)
+void	swap_b_maybe_a(t_two_stks *stks, int *alimit)
 {
 	int		*curr[2]; 
 
 	curr[0] = (int *) ft_stack_peek(stks->a);
 	curr[1] = (int *) ft_stack_peek_next(stks->a);
 	if (curr[0] && curr[1] && *curr[0] > *curr[1])
-		ss(stks);
+	{
+			ss(stks);
+			if (alimit && alimit[0] != 0 && alimit[1] == *curr[0])
+			alimit[1] = *((int*)ft_stack_peek(stks->a));
+	}
 	else
 		sb(stks);
 }
 
-void	rotate_b_maybe_a(t_two_stks *stks)
+void	rotate_b_maybe_a(t_two_stks *stks, int *alimit)
 {
 	int		*curr[2]; 
 
 	curr[0] = (int *) ft_stack_peek(stks->a);
 	curr[1] = (int *) ft_stack_peek_last(stks->a);
 	if (curr[0] && curr[1] && *curr[0] > *curr[1])
-		return (rr(stks));
-	rb(stks);
+	{
+		rr(stks);
+		if (alimit && alimit[0] != 0 && alimit[1] == *curr[0])
+			alimit[1] = *((int*)ft_stack_peek(stks->a));
+	}
+	else
+		rb(stks);
 }
 
-void	rotate_a_maybe_b(t_two_stks *stks)
+void	rotate_a_maybe_b(t_two_stks *stks, int *blimit)
 {
 	int		*curr[2]; 
 
 	curr[0] = (int *) ft_stack_peek(stks->b);
 	curr[1] = (int *) ft_stack_peek_last(stks->b);
 	if (curr[0] && curr[1] && *curr[0] < *curr[1])
-		return (rr(stks));
+	{
+		rr(stks);
+		if (blimit && blimit[0] != 0 && blimit[1] == *curr[0])
+			blimit[1] = *((int*)ft_stack_peek(stks->b));
+	}
 	ra(stks);
 }
 
-void	push_b_and_check(t_two_stks *stks)
+void	push_b_and_check(t_two_stks *stks, int *alimit)
 {
 	int		*curr[2]; 
 
@@ -78,14 +95,14 @@ void	push_b_and_check(t_two_stks *stks)
 	curr[0] = (int *) ft_stack_peek(stks->b);
 	curr[1] = (int *) ft_stack_peek_last(stks->b);
 	if (curr[1] && *curr[0] < *curr[1])
-		return (rotate_b_maybe_a(stks));
+		return (rotate_b_maybe_a(stks, alimit));
 	curr[1] = (int *) ft_stack_peek_next(stks->b);
 	if (curr[1] && *curr[0] < *curr[1])
-		return (swap_b_maybe_a(stks));
+		return (swap_b_maybe_a(stks, alimit));
 }
 
 
-void	push_a_and_check(t_two_stks *stks)
+void	push_a_and_check(t_two_stks *stks, int *blimit)
 {
 	int		*curr[2]; 
 
@@ -93,27 +110,27 @@ void	push_a_and_check(t_two_stks *stks)
 	curr[0] = (int *) ft_stack_peek(stks->a);
 	curr[1] = (int *) ft_stack_peek_last(stks->a);
 	if (curr[1] && *curr[0] > *curr[1])
-		return (rotate_a_maybe_b(stks));
+		return (rotate_a_maybe_b(stks, blimit));
 	curr[1] = (int *) ft_stack_peek_next(stks->a);
 	if (curr[1] && *curr[0] > *curr[1])
-		return (swap_a_maybe_b(stks));
+		return (swap_a_maybe_b(stks, blimit));
 }
 
 void	sort_less_than4(t_two_stks *stks, t_stat *stat, int **curr)
 {
 	stat->is_sorted = 1;
 	if (stat->len == 2)
-			return (swap_a_maybe_b(stks));
+		return (swap_a_maybe_b(stks, 0));
 	curr[0] = ft_stack_peek(stks->a);
 	curr[1] = ft_stack_peek_last(stks->a);
 	if (*curr[0] == stat->min)
-		return (swap_a_maybe_b(stks), rotate_a_maybe_b(stks));
+		return (swap_a_maybe_b(stks, 0), rotate_a_maybe_b(stks, 0));
 	if (*curr[0] == stat->max && *curr[1] == stat->min)
-		return (swap_a_maybe_b(stks), rra(stks));
+		return (swap_a_maybe_b(stks, 0), rra(stks));
 	if (*curr[0] == stat->max)
-		return (rotate_a_maybe_b(stks));
+		return (rotate_a_maybe_b(stks, 0));
 	if (*curr[1] == stat->max)
-		return (swap_a_maybe_b(stks));
+		return (swap_a_maybe_b(stks, 0));
 	return (rra(stks));
 }
 
@@ -135,25 +152,13 @@ void	process_stacka(t_two_stks *stks, t_stat *stat)
 			{
 				curr[1] = ft_stack_peek_next(stks->a);
 				if (*curr[1] < *curr[0])
-					swap_a_maybe_b(stks);
+					swap_a_maybe_b(stks, 0);
 				else
-				{
-					push_b_and_check(stks);
-					if (limit[0] == 0 && ft_stack_peek_last(stks->a) == curr[1])
-					{
-						limit[1] = *((int *) ft_stack_peek_last(stks->a));
-						limit[0] = limit[1] > stat->avg;
-						ft_puterr("limit ");
-						ft_int_printerr(limit + 0);
-						ft_puterr(" ");
-						ft_int_printerr(limit + 1);
-						ft_puterrl("");
-					}
-				}
+					push_b_and_check(stks, limit);
 			}
 			else
 			{
-				rotate_a_maybe_b(stks);
+				rotate_a_maybe_b(stks, 0);
 				if (limit[0] == 0)
 				{
 					limit[1] = *((int *) ft_stack_peek_last(stks->a));
@@ -199,25 +204,13 @@ void	process_stackb(t_two_stks *stks, t_stat *stat)
 			{
 				curr[1] = ft_stack_peek_next(stks->b);
 				if (*curr[1] > *curr[0])
-					swap_b_maybe_a(stks);
+					swap_b_maybe_a(stks, NULL);
 				else
-				{
-					push_a_and_check(stks);
-					if (limit[0] == 0 && ft_stack_peek_last(stks->b) == curr[1])
-					{
-						limit[1] = *((int *) ft_stack_peek_last(stks->b));
-						limit[0] = limit[1] < stat->avg;
-						ft_puterr("limit ");
-						ft_int_printerr(limit + 0);
-						ft_puterr(" ");
-						ft_int_printerr(limit + 1);
-						ft_puterrl("");
-					}
-				}
+					push_a_and_check(stks, limit);
 			}
 			else
 			{
-				rotate_b_maybe_a(stks);
+				rotate_b_maybe_a(stks, NULL);
 				if (limit[0] == 0)
 				{
 					limit[1] = *((int *) ft_stack_peek_last(stks->b));
