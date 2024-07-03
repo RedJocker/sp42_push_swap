@@ -23,3 +23,5 @@ valgrind-out.txt
 
 **/push_swap_visualizer
 imgui.ini
+
+**/checker*
