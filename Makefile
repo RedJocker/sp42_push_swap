@@ -6,7 +6,7 @@
 #    By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/05 20:20:04 by maurodri          #+#    #+#              #
-#    Updated: 2024/06/26 23:20:49 by maurodri         ###   ########.fr        #
+#    Updated: 2024/07/03 04:59:13 by maurodri         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -17,7 +17,9 @@ FILES := main.c \
 	push_swap.c \
 	two_stks.c \
 	psargs.c \
-	stat.c 
+	stat.c \
+	sort_naive.c \
+	sort_two.c \
 
 # BONUS_FILES := main_bonus.c \
 # 			envp_bonus.c \
@@ -82,7 +84,7 @@ fclean: clean
 
 re: fclean all
 
-test_build: two_stks.c psargs.c push_swap.c stat.c $(LIBFT)
+test_build: two_stks.c psargs.c push_swap.c stat.c sort_naive.c $(LIBFT)
 	echo $(INCLUDES)
 	$(CC) $(CFLAGS) test.c $^ $(INCLUDES) -o test
 
