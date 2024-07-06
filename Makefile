@@ -6,7 +6,7 @@
 #    By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/05 20:20:04 by maurodri          #+#    #+#              #
-#    Updated: 2024/07/03 04:59:13 by maurodri         ###   ########.fr        #
+#    Updated: 2024/07/06 07:24:57 by maurodri         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -20,6 +20,8 @@ FILES := main.c \
 	stat.c \
 	sort_naive.c \
 	sort_two.c \
+	sort3.c \
+	stat3.c
 
 # BONUS_FILES := main_bonus.c \
 # 			envp_bonus.c \
