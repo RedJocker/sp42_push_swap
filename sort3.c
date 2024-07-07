@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 01:50:55 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/06 23:47:56 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/07 13:33:12 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void	sort3_return_a_sortlt4(t_two_stks *stks)
 	
 	bound[0] = INT_MIN;
 	bound[1] = INT_MAX;
-	stat3_init(&stat);
 	stat3_compute(&stat, stks->b, bound);
 	if (stat.is_revsorted)
 		return ;
@@ -97,11 +96,12 @@ void	sort3_return_a_sortlt4(t_two_stks *stks)
 		sort3_return_a_sort3(stks, &stat);
 }
 
-void sort3_return_a(t_two_stks *stks)
+void sort3_return_a(t_two_stks *stks, t_stat3 *stata)
 {
 	int	*current;
 	int	*bottom;
 
+	(void) stata;
 	ft_puterrl("returnA");
 	current = ft_stack_peek(stks->b);
 	while (ft_stack_len(stks->b) > 3)
@@ -114,7 +114,8 @@ void sort3_return_a(t_two_stks *stks)
 			pa(stks);
 		current = ft_stack_peek(stks->b);
 	}
-	//	sort3_return_a_sortlt4(stks);
+	/* if (stata->len < 8) */
+	/* 	sort3_return_a_sortlt4(stks); */
 	current = ft_stack_peek(stks->b);
 	while (current)
 	{
@@ -342,9 +343,7 @@ void	sort3_sort(t_two_stks *stks, int bound[2])
 	t_stat3 stat;
 	int		partition[2];
 
-	stat3_init(&stat);
 	stat3_compute(&stat, stks->a, bound);
-	stat3_print(&stat);
 	two_stks_print(stks);
 	if (stat.is_sorted)
 		return ;
@@ -354,7 +353,7 @@ void	sort3_sort(t_two_stks *stks, int bound[2])
 	two_stks_print(stks);
 	sort3_snd_pos(stks, &stat);
 	two_stks_print(stks);
-	sort3_return_a(stks);
+	sort3_return_a(stks, &stat);
 	two_stks_print(stks);
 	partition[0] = stat.min;
 	partition[1] = stat.min + stat.mean3;

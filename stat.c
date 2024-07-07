@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 21:25:36 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/03 04:37:03 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/07 14:12:37 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ void	stat_item_len_avg(int *item, t_stat *stat)
 
 void	stat_compute(t_stat *stat, t_stack stk)
 {
+	stat_init(stat);
 	ft_stack_foreacharg(stk, (t_biconsumer) stat_item_process, stat);
 	if (stat->len <= 3)
 		return ;
@@ -143,4 +144,5 @@ void	stat_compute(t_stat *stat, t_stack stk)
 	stat->len_le_avg_nosorted = 0;
 	stat->len_ge_avg_norevsorted = 0;
 	ft_stack_foreacharg(stk, (t_biconsumer) stat_item_len_avg, stat);
+	stat_print(stat);
 }

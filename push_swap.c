@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:44:51 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/06 18:47:35 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/07 13:36:43 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,7 @@ static void	anonymous_fun(t_two_stks *stks)
 
 	bound[0] = INT_MIN;
 	bound[1] = INT_MAX;
-	ft_puterrl("START");
-	two_stks_print(stks);
 	sort3_sort(stks, bound);
-	two_stks_print(stks);
-	ft_puterrl("END");
 }
 
 void	two_stcks_sort(t_two_stks *stks, t_consumer sort_impl)
@@ -53,7 +49,14 @@ int	testable_main(int argc, char *argv[])
 	if (is_parseok)
 	{
 		two_stks_init(stks, &psargs);
-		two_stks_sort(stks, (t_consumer) anonymous_fun);
+		ft_puterrl("START");
+		two_stks_print(stks);
+		(void) anonymous_fun;
+		//two_stks_sort(stks, (t_consumer) two_stcks_sort_naive);
+		two_stks_sort(stks, (t_consumer) two_stcks_sort_two);
+		// two_stks_sort(stks, (t_consumer) anonymous_fun);
+		two_stks_print(stks);
+		ft_puterrl("END");
 	}
 	else
 		ft_puterrl("Error");

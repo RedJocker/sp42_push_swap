@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 04:41:46 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/03 05:54:36 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/07 15:40:33 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,9 +163,7 @@ static void	process_stacka(t_two_stks *stks, t_stat *stat)
 			curr[0] = ft_stack_peek_last(stks->a);
 		}
 		two_stks_print(stks);
-		stat_init(stat);
 		stat_compute(stat, stks->a);
-		stat_print(stat);
 	}
 	if (!stat->is_sorted)
 		sort_less_than4(stks, stat, curr);
@@ -177,14 +175,12 @@ static void	process_stackb(t_two_stks *stks, t_stat *stat)
 	int		*curr[2];
 
 	ft_puterrl("processing StackB");
-	stat_init(stat);
 	stat_compute(stat, stks->b);
-	stat_print(stat);
 	while (!stat->is_revsorted && stat->len > 3)
 	{
 		while (stat->len_ge_avg_norevsorted > 0)
 		{
-			curr[0] = ft_stack_peek_last(stks->b);
+			curr[0] = ft_stack_peek(stks->b);
 			if (*curr[0] >= (int) stat->avg_norevsorted)
 			{
 				curr[1] = ft_stack_peek_next(stks->b);
@@ -211,9 +207,7 @@ static void	process_stackb(t_two_stks *stks, t_stat *stat)
 			curr[0] = ft_stack_peek_last(stks->b);
 		}
 		two_stks_print(stks);
-		stat_init(stat);
 		stat_compute(stat, stks->b);
-		stat_print(stat);
 	}
 	if (!stat->is_revsorted)
 		revsort_less_than4(stks, stat, curr);
@@ -225,9 +219,7 @@ void	two_stcks_sort_two(t_two_stks *stks)
 	t_stat	stat[2];
 
 	two_stks_print(stks);
-	stat_init(stat + 0);
 	stat_compute(stat + 0, stks->a);
-	stat_print(stat + 0);
 	while (!stat[0].is_sorted)
 	{
 		process_stacka(stks, stat + 0);
@@ -237,9 +229,7 @@ void	two_stcks_sort_two(t_two_stks *stks)
 			while (ft_stack_len(stks->b) > 0)
 				pa(stks);
 		}
-		stat_init(stat + 0);
 		stat_compute(stat + 0, stks->a);
-		stat_print(stat + 0);
 	}
 	ft_puterrl("Finish");
 	two_stks_print(stks);

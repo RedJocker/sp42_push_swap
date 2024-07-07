@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:20:41 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/03 03:17:00 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/07 14:20:24 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,14 +134,14 @@ void	process_stacka(t_two_stks *stks, t_stat *stat)
 	int		limit[2];
 
 	ft_puterrl("processing StackA");
-	while (!stat->is_sorted && stat->len > 3)
+	while (!stat[0].is_sorted && stat->len > 3)
 	{
 		limit[0] = 0;
 		limit[1] = *((int *) ft_stack_peek_last(stks->a));
 		curr[0] = (int *) ft_stack_peek(stks->a);
 		while (*curr[0] != limit[1])
 		{
-			if (*curr[0] <= (int) stat->avg)
+			if (*curr[0] <= (int) stat[0].avg)
 			{
 				curr[1] = ft_stack_peek_next(stks->a);
 				if (*curr[1] < *curr[0])
@@ -155,7 +155,7 @@ void	process_stacka(t_two_stks *stks, t_stat *stat)
 				if (limit[0] == 0)
 				{
 					limit[1] = *((int *) ft_stack_peek_last(stks->a));
-					limit[0] = limit[1] > stat->avg;
+					limit[0] = limit[1] > stat[0].avg;
 					ft_puterr("limit ");
 					ft_int_printerr(limit + 0);
 					ft_puterr(" ");
@@ -166,13 +166,11 @@ void	process_stacka(t_two_stks *stks, t_stat *stat)
 			two_stks_print(stks);
 			curr[0] = (int *) ft_stack_peek(stks->a);
 		}
-		stat_init(stat);
-		stat_compute(stat, stks->a);
-		stat_print(stat);
+		stat_compute(stat + 0, stks->a);
 	}
-	if (!stat->is_sorted)
+	if (!stat[0].is_sorted)
 	{
-		sort_less_than4(stks, stat, curr);
+		sort_less_than4(stks, stat + 0, curr);
 		two_stks_print(stks);
 	}
 }
@@ -183,17 +181,15 @@ void	process_stackb(t_two_stks *stks, t_stat *stat)
 	int		limit[2];
 
 	ft_puterrl("processing StackB");
-	stat_init(stat);
-	stat_compute(stat, stks->b);
-	stat_print(stat);
-	while (!stat->is_revsorted)
+	stat_compute(stat + 1, stks->b);
+	while (!stat[1].is_revsorted)
 	{
 		limit[0] = 0;
 		limit[1] = *((int *)ft_stack_peek_last(stks->b));
 		curr[0] = (int *) ft_stack_peek(stks->b);
 		while (*curr[0] != limit[1])
 		{
-			if (*curr[0] >= (int) stat->avg)
+			if (*curr[0] >= (int) stat[1].avg)
 			{
 				curr[1] = ft_stack_peek_next(stks->b);
 				if (*curr[1] > *curr[0])
@@ -207,7 +203,7 @@ void	process_stackb(t_two_stks *stks, t_stat *stat)
 				if (limit[0] == 0)
 				{
 					limit[1] = *((int *) ft_stack_peek_last(stks->b));
-					limit[0] = limit[1] < stat->avg;
+					limit[0] = limit[1] < stat[1].avg;
 					ft_puterr("limit ");
 					ft_int_printerr(limit + 0);
 					ft_puterr(" ");
@@ -218,9 +214,7 @@ void	process_stackb(t_two_stks *stks, t_stat *stat)
 			two_stks_print(stks);
 			curr[0] = (int *) ft_stack_peek(stks->b);
 		}
-		stat_init(stat);
-		stat_compute(stat, stks->b);
-		stat_print(stat);
+		stat_compute(stat + 1, stks->b);
 	}
 	two_stks_print(stks);
 }
@@ -230,22 +224,17 @@ void	two_stcks_sort_naive(t_two_stks *stks)
 	t_stat	stat[2];
 
 	two_stks_print(stks);
-	stat_init(stat + 0);
 	stat_compute(stat + 0, stks->a);
-	stat_print(stat + 0);
 	while (!stat[0].is_sorted)
 	{
-		process_stacka(stks, stat + 0);
-		process_stackb(stks, stat + 1);
+		process_stacka(stks, stat);
+		process_stackb(stks, stat);
 		if (stat[0].is_sorted && stat[1].is_revsorted)
 		{
 			while (ft_stack_len(stks->b) > 0)
 				pa(stks);
 		}
-		stat_init(stat + 0);
 		stat_compute(stat + 0, stks->a);
-		stat_print(stat + 0);
 	}
-	ft_puterrl("Finish");
 	two_stks_print(stks);
 }

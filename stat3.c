@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 07:10:40 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/06 07:26:28 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/07 00:27:18 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static void	stat3_item_process(int *item, t_stat3 *stat, int bound[2])
 
 void	stat3_compute(t_stat3 *stat, t_stack stk, int bound[2])
 {
+	stat3_init(stat);
 	ft_stack_foreachbiarg(stk, (t_triconsumer) stat3_item_process, stat, bound);
 	stat->mean3 = (stat->len * stat->avg) / (3 * stat->avg);
 	if (stat->len <= 2)
@@ -77,4 +78,5 @@ void	stat3_compute(t_stat3 *stat, t_stack stk, int bound[2])
 	stat->avg = (
 		((stat->len - 1) * stat->avg) - stat->max) / (stat->len - 2);
 	stat->mean3 = (stat->len * stat->avg) / (3 * stat->avg);
+	stat3_print(stat);
 }
