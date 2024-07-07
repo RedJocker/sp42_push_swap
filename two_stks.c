@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:46:38 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/29 23:45:03 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/06 17:41:47 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	sa(t_two_stks *stks)
 {
 	stack_swap(stks->a);
 	ft_putendl("sa");
+	ft_puterrl("sa");
 }
 
 // swap b
@@ -87,6 +88,7 @@ void	sb(t_two_stks *stks)
 {
 	stack_swap(stks->b);
 	ft_putendl("sb");
+	ft_puterrl("sb");
 }
 
 // swap a and b
@@ -95,6 +97,7 @@ void	ss(t_two_stks *stks)
 	stack_swap(stks->a);
 	stack_swap(stks->b);
 	ft_putendl("ss");
+	ft_puterrl("ss");
 }
 
 // push a
@@ -105,6 +108,7 @@ void	pa(t_two_stks *stks)
 	elem = ft_stack_pop(stks->b);
 	stks->a = ft_stack_push(stks->a, elem);
 	ft_putendl("pa");
+	ft_puterrl("pa");
 }
 
 // push b
@@ -115,6 +119,7 @@ void	pb(t_two_stks *stks)
 	elem = ft_stack_pop(stks->a);
 	stks->b = ft_stack_push(stks->b, elem);
 	ft_putendl("pb");
+	ft_puterrl("pb");
 }
 
 void	stack_rotate(t_stack stk)
@@ -131,6 +136,7 @@ void	ra(t_two_stks *stks)
 {
 	stack_rotate(stks->a);
 	ft_putendl("ra");
+	ft_puterrl("ra");
 }
 
 // rotate b
@@ -138,6 +144,7 @@ void	rb(t_two_stks *stks)
 {
 	stack_rotate(stks->b);
 	ft_putendl("rb");
+	ft_puterrl("rb");
 }
 
 // rotate a and b
@@ -146,6 +153,7 @@ void	rr(t_two_stks *stks)
 	stack_rotate(stks->a);
 	stack_rotate(stks->b);
 	ft_putendl("rr");
+	ft_puterrl("rr");
 }
 
 
@@ -163,6 +171,7 @@ void	rra(t_two_stks *stks)
 {
 	stack_rev_rotate(stks->a);
 	ft_putendl("rra");
+	ft_puterrl("rra");
 }
 
 // reverse rotate b
@@ -170,6 +179,7 @@ void	rrb(t_two_stks *stks)
 {
 	stack_rev_rotate(stks->b);
 	ft_putendl("rrb");
+	ft_puterrl("rrb");
 }
 
 // reverse rotate a and b
@@ -178,4 +188,5 @@ void	rrr(t_two_stks *stks)
 	stack_rev_rotate(stks->a);
 	stack_rev_rotate(stks->b);
 	ft_putendl("rrr");
+	ft_puterrl("rrr");
 }
