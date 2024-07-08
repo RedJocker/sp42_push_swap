@@ -6,11 +6,10 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 01:50:55 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/07 13:33:12 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/07 18:34:37 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// now it goes!!!
 #include "collection/ft_stack.h"
 #include "ft_stdio.h"
 #include "ft_util.h"
@@ -19,7 +18,7 @@
 #include <limits.h>
 
 
-int item_higher(int *item, t_stat3 *stat)
+static int item_higher(int *item, t_stat3 *stat)
 {
   	int limit[2];
 
@@ -30,7 +29,7 @@ int item_higher(int *item, t_stat3 *stat)
 	return (*item >= limit[0] && *item <= limit[1]);
 }
 
-int item_middle(int *item, t_stat3 *stat)
+static int item_middle(int *item, t_stat3 *stat)
 {
  	int limit[2];
 
@@ -42,7 +41,7 @@ int item_middle(int *item, t_stat3 *stat)
 }	
 
 
-int item_lower(int *item, t_stat3 *stat)
+static int item_lower(int *item, t_stat3 *stat)
 {
 	int limit[2];
 
@@ -53,7 +52,7 @@ int item_lower(int *item, t_stat3 *stat)
   	return (*item >= limit[0] && *item <= limit[1]);
 }
 
-void	sort3_return_a_sort3(t_two_stks *stks, t_stat3 *stat)
+static void	sort3_return_a_sort3(t_two_stks *stks, t_stat3 *stat)
 {
 	int	*item[2];
 	
@@ -80,7 +79,7 @@ void	sort3_return_a_sort3(t_two_stks *stks, t_stat3 *stat)
 	}
 }
 
-void	sort3_return_a_sortlt4(t_two_stks *stks)
+static void	sort3_return_a_sortlt4(t_two_stks *stks)
 {
 	t_stat3	stat;
 	int		bound[2];
@@ -96,7 +95,7 @@ void	sort3_return_a_sortlt4(t_two_stks *stks)
 		sort3_return_a_sort3(stks, &stat);
 }
 
-void sort3_return_a(t_two_stks *stks, t_stat3 *stata)
+static void sort3_return_a(t_two_stks *stks, t_stat3 *stata)
 {
 	int	*current;
 	int	*bottom;
@@ -125,7 +124,7 @@ void sort3_return_a(t_two_stks *stks, t_stat3 *stata)
 }
 
 
-void sort3_snd_pos(t_two_stks *stks, t_stat3 *stat)
+static void sort3_snd_pos(t_two_stks *stks, t_stat3 *stat)
 {
 	int *item;
 
@@ -161,7 +160,7 @@ void sort3_snd_pos(t_two_stks *stks, t_stat3 *stat)
 	}
 }
 
-void sort3_fst_pos_lower(t_two_stks *stks, t_stat3 *stat, int *item)
+static void sort3_fst_pos_lower(t_two_stks *stks, t_stat3 *stat, int *item)
 {
 	int	*next;
 
@@ -180,7 +179,7 @@ void sort3_fst_pos_lower(t_two_stks *stks, t_stat3 *stat, int *item)
 		pb(stks);
 }
 
-void sort3_fst_pos_higher(t_two_stks *stks, t_stat3 *stat, int *item)
+static void sort3_fst_pos_higher(t_two_stks *stks, t_stat3 *stat, int *item)
 {
 	int	*next;
 	int *item_a;
@@ -199,7 +198,7 @@ void sort3_fst_pos_higher(t_two_stks *stks, t_stat3 *stat, int *item)
 	}
 }
 
-void sort3_fst_pos(t_two_stks *stks, t_stat3 *stat)
+static void sort3_fst_pos(t_two_stks *stks, t_stat3 *stat)
 {
 	int *item;
 	ft_puterrl("fst_pos");
@@ -232,7 +231,7 @@ void sort3_fst_pos(t_two_stks *stks, t_stat3 *stat)
 	}
 }
 
-void rotate_partition(t_two_stks *stks, int partition[2])
+static void rotate_partition(t_two_stks *stks, int partition[2])
 {
 	int	*item;
 
@@ -247,7 +246,7 @@ void rotate_partition(t_two_stks *stks, int partition[2])
 	}
 }
 
-void	sort3_e3(t_two_stks *stks, t_stat3 *stat)
+static void	sort3_e3(t_two_stks *stks, t_stat3 *stat)
 {
 	int	*item[2];
 	
@@ -282,7 +281,7 @@ void	sort3_e3(t_two_stks *stks, t_stat3 *stat)
 	}
 }
 
-void	sort3_e4(t_two_stks *stks)
+static void	sort3_e4(t_two_stks *stks)
 {
 	int	*item[3];
 	int	i;
@@ -328,7 +327,7 @@ void	sort3_e4(t_two_stks *stks)
 }  
 
 
-void	sort3_le4(t_two_stks *stks, t_stat3 *stat)
+static void	sort3_le4(t_two_stks *stks, t_stat3 *stat)
 {
 	if (stat->len == 2)
 		sa(stks);

@@ -6,7 +6,7 @@
 #    By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/05 20:20:04 by maurodri          #+#    #+#              #
-#    Updated: 2024/07/06 07:24:57 by maurodri         ###   ########.fr        #
+#    Updated: 2024/07/07 20:00:40 by maurodri         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -21,7 +21,9 @@ FILES := main.c \
 	sort_naive.c \
 	sort_two.c \
 	sort3.c \
-	stat3.c
+	sort3b.c \
+	stat3.c \
+	stat3b.c
 
 # BONUS_FILES := main_bonus.c \
 # 			envp_bonus.c \
@@ -40,7 +42,7 @@ MANDATORY_OBJS := $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(FILES)))
 BONUS_OBJS := $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(BONUS_FILES)))
 DEP_FLAGS := -MP -MD
 VPATH := ./ ./mandatory ./bonus
-CFLAGS := -g3 -Wall -Wextra -Werror 
+CFLAGS := -g3 # -Wall -Wextra -Werror 
 CC := cc
 
 ifdef WITH_BONUS
