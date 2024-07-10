@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 20:02:28 by maurodri          #+#    #+#             */
-/*   Updated: 2024/06/21 00:18:17 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/10 15:29:55 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,15 @@ int	psargs_init(t_psargs *out_psargs, char **in_args, int len)
 	is_ok = (
 			is_ok && (!has_duplicates(out_psargs)));
 	return (is_ok);
+}
+
+void	psargs_normalize(t_psargs *psargs)
+{
+	(void) psargs;
+	// TODO
+	// create arr pointer
+	// sort arr pointer
+	// change values pointed to by position on arr pointer
 }
 
 void	psargs_clean(t_psargs *out_psargs)
