@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 18:13:31 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/10 14:31:31 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:50:02 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	sort3_e3(t_two_stks *stks, t_stat3b *stat)
 	item[1] = ft_stack_peek_next(stks->a);
 	if (*item[0] == stat->min)
 	{
-	  	pb(stks);
+		pb(stks);
 		sa(stks);
 		pa(stks);
 	}
@@ -36,7 +36,7 @@ static void	sort3_e3(t_two_stks *stks, t_stat3b *stat)
 		pb(stks);
 		sa(stks);
 		pa(stks);
-	  	if (*item[1] != stat->min)
+		if (*item[1] != stat->min)
 			sa(stks);
 	}
 	else
@@ -97,7 +97,7 @@ static void	sort3_e4(t_two_stks *stks)
 		}
 		i++;
 	}
-}  
+}
 
 static void	sort3_le4(t_two_stks *stks, t_stat3b *stat)
 {
@@ -110,7 +110,7 @@ static void	sort3_le4(t_two_stks *stks, t_stat3b *stat)
 		sort3_e4(stks);
 }
 
-static void sort3_return_a_middle(t_two_stks *stks, t_stat3b *stat)
+static void	sort3_return_a_middle(t_two_stks *stks, t_stat3b *stat)
 {
 	int	*current;
 
@@ -124,7 +124,7 @@ static void sort3_return_a_middle(t_two_stks *stks, t_stat3b *stat)
 	}
 }
 
-static void sort3_return_a_lower(t_two_stks *stks, t_stat3b *stat)
+static void	sort3_return_a_lower(t_two_stks *stks, t_stat3b *stat)
 {
 	int	*current;
 
@@ -145,10 +145,9 @@ static void sort3_return_a_lower(t_two_stks *stks, t_stat3b *stat)
 	}
 }
 
-
-static int sort3_fst_pos_lower(t_two_stks *stks, t_stat3b *stat, int *item)
+static int	sort3_fst_pos_lower(t_two_stks *stks, t_stat3b *stat, int *item)
 {
-	int *topa;
+	int	*topa;
 
 	ft_puterrl("lower");
 	(void) item;
@@ -166,12 +165,10 @@ static int sort3_fst_pos_lower(t_two_stks *stks, t_stat3b *stat, int *item)
 		rb(stks);
 		return (0);
 	}
-	
 }
 
-static void sort3_fst_pos_higher(t_two_stks *stks, t_stat3b *stat, int *item)
+static void	sort3_fst_pos_higher(t_two_stks *stks, t_stat3b *stat, int *item)
 {
-
 	ft_puterrl("higher");
 	(void) item;
 	(void) stat;
@@ -182,17 +179,15 @@ static void	sort3_fst_pos_middle(t_two_stks *stks, t_stat3b *stat, int *item)
 {
 	ft_puterrl("middle");
 	(void) item;
-	(void) stat;
 	stat->len_not_high--;
 	pb(stks);
 }
 
-
 static void	sort3b_partition(t_two_stks *stks, t_stat3b *stat)
 {
-	int *item;
-	int  was_last_rotated;
-	
+	int	*item;
+	int	was_last_rotated;
+
 	ft_puterrl("partition");
 	was_last_rotated = 0;
 	while (stat->len_not_high >= 0)
@@ -204,13 +199,13 @@ static void	sort3b_partition(t_two_stks *stks, t_stat3b *stat)
 		if (item_lower(item, stat))
 			was_last_rotated = sort3_fst_pos_lower(stks, stat, item);
 		else if (item_middle(item, stat))
-			sort3_fst_pos_middle(stks, stat, item);	
+			sort3_fst_pos_middle(stks, stat, item);
 		else if (item_higher(item, stat))
 			sort3_fst_pos_higher(stks, stat, item);
 		else
 		{
 			ft_puterrl("break1");
-			break;
+			break ;
 		}
 		if (item == stat->last || was_last_rotated)
 		{
@@ -223,7 +218,7 @@ static void	sort3b_partition(t_two_stks *stks, t_stat3b *stat)
 static void	sort3_rotate_high(t_two_stks *stks, t_stat3b *stat)
 {
 	int	*top;
-	int *bottom;
+	int	*bottom;
 
 	ft_puterrl("rotate_high");
 	top = ft_stack_peek(stks->a);
@@ -269,11 +264,11 @@ void	sort3b_sort(t_two_stks *stks, int bound[2])
 	stat3b_compute(&stat, stks->a, bound);
 	two_stks_print(stks);
 	if (stat.is_sorted)
-		return;
+		return ;
 	if (stat.len == 3 && bound[0] == INT_MIN && bound[1] == INT_MAX)
 		return (sort3b_e3_wholestks(stks, &stat));
 	if (stat.len <= 4)
-	  	return (sort3_le4(stks, &stat));
+		return (sort3_le4(stks, &stat));
 	sort3b_partition(stks, &stat);
 	two_stks_print(stks);
 	sort3_rotate_high(stks, &stat);

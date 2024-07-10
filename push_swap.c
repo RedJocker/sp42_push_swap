@@ -6,10 +6,9 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:44:51 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/07 18:34:33 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:44:02 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "psargs.h"
 #include "ft_stdio.h"
@@ -17,9 +16,6 @@
 #include "ft_util.h"
 #include "limits.h"
 #include "sort3.h"
-
-void	two_stcks_sort_naive(t_two_stks *stks);
-void	two_stcks_sort_two(t_two_stks *stks);
 
 static void	anonymous_fun(t_two_stks *stks)
 {
@@ -34,7 +30,6 @@ void	two_stcks_sort(t_two_stks *stks, t_consumer sort_impl)
 {
 	sort_impl(stks);
 }
-
 
 int	testable_main(int argc, char *argv[])
 {
@@ -51,9 +46,6 @@ int	testable_main(int argc, char *argv[])
 		two_stks_init(stks, &psargs);
 		ft_puterrl("START");
 		two_stks_print(stks);
-		(void) anonymous_fun;
-		//two_stks_sort(stks, (t_consumer) two_stcks_sort_naive);
-		//two_stks_sort(stks, (t_consumer) two_stcks_sort_two);
 		two_stks_sort(stks, (t_consumer) anonymous_fun);
 		two_stks_print(stks);
 		ft_puterrl("END");

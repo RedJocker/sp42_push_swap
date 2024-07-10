@@ -6,10 +6,9 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 19:58:40 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/08 03:31:50 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:59:26 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "collection/ft_stack.h"
 #include "ft_stdio.h"
@@ -18,39 +17,37 @@
 #include "stat3b.h"
 #include "ft_util.h"
 
-
-int item_higher(int *item, t_stat3b *stat)
+int	item_higher(int *item, t_stat3b *stat)
 {
-  	int limit[2];
+	int	limit[2];
 
-  	if (item == NULL)
-	  return (0);
-	limit[0] = (int) (stat->min + (2 * stat->mean3));
-	limit[1] = (int) stat->max;
+	if (item == NULL)
+		return (0);
+	limit[0] = (int)(stat->min + (2 * stat->mean3));
+	limit[1] = (int)stat->max;
 	return (*item >= limit[0] && *item <= limit[1]);
 }
 
-int item_middle(int *item, t_stat3b *stat)
+int	item_middle(int *item, t_stat3b *stat)
 {
- 	int limit[2];
+	int	limit[2];
 
-  	if (item == NULL)
-	  return (0);
-	limit[0] = (int) (stat->min + stat->mean3);
-	limit[1] = (int) (stat->min + (2 * stat->mean3)) - 1;
+	if (item == NULL)
+		return (0);
+	limit[0] = (int)(stat->min + stat->mean3);
+	limit[1] = (int)(stat->min + (2 * stat->mean3)) - 1;
 	return (*item >= limit[0] && *item <= limit[1]);
-}	
+}
 
-
-int item_lower(int *item, t_stat3b *stat)
+int	item_lower(int *item, t_stat3b *stat)
 {
-	int limit[2];
+	int	limit[2];
 
-  	if (item == NULL)
-	  return (0);
-	limit[0] = (int) (stat->min);
-	limit[1] = (int) (stat->min + stat->mean3) - 1;
-  	return (*item >= limit[0] && *item <= limit[1]);
+	if (item == NULL)
+		return (0);
+	limit[0] = (int)(stat->min);
+	limit[1] = (int)(stat->min + stat->mean3) - 1;
+	return (*item >= limit[0] && *item <= limit[1]);
 }
 
 void	stat3b_print(t_stat3b *stat)
@@ -91,7 +88,6 @@ void	stat3b_init(t_stat3b *out_stat)
 
 static void	stat3b_item_process(int *item, t_stat3b *stat, int bound[2])
 {
-	
 	if (stat == NULL || *item < bound[0] || *item > bound[1])
 		return ;
 	if (*item < stat->min)
@@ -100,15 +96,16 @@ static void	stat3b_item_process(int *item, t_stat3b *stat, int bound[2])
 		stat->max = *item;
 	stat->avg = (*item + (stat->len * stat->avg)) / (stat->len + 1);
 	stat->is_sorted = !stat->last || (stat->is_sorted && *item > *stat->last);
-	stat->is_revsorted = !stat->last || (stat->is_revsorted && *item < *stat->last);
+	stat->is_revsorted = !stat->last
+		|| (stat->is_revsorted && *item < *stat->last);
 	stat->last = item;
 	stat->len++;
 }
 
-static void stat3b_item_count_not_high(int *item, t_stat3b *stat, int bound[2])
+static void	stat3b_item_count_not_high(int *item, t_stat3b *stat, int bound[2])
 {
 	if (stat == NULL || *item < bound[0] || *item > bound[1])
-		return;
+		return ;
 	if (!item_higher(item, stat))
 		stat->len_not_high++;
 }
@@ -116,15 +113,17 @@ static void stat3b_item_count_not_high(int *item, t_stat3b *stat, int bound[2])
 void	stat3b_compute(t_stat3b *stat, t_stack stk, int bound[2])
 {
 	stat3b_init(stat);
-	ft_stack_foreachbiarg(stk, (t_triconsumer) stat3b_item_process, stat, bound);
+	ft_stack_foreachbiarg(
+		stk, (t_triconsumer) stat3b_item_process, stat, bound);
 	stat->mean3 = (stat->len * stat->avg) / (3 * stat->avg);
 	if (stat->len <= 2)
 	{
 		stat->avg = ((stat->len * stat->avg) - stat->min) / (stat->len - 1);
 		stat->avg = (
-			((stat->len - 1) * stat->avg) - stat->max) / (stat->len - 2);	
+				((stat->len - 1) * stat->avg) - stat->max) / (stat->len - 2);
 	}
 	stat->mean3 = (stat->len * stat->avg) / (3 * stat->avg);
-	ft_stack_foreachbiarg(stk, (t_triconsumer) stat3b_item_count_not_high, stat, bound);
+	ft_stack_foreachbiarg(
+		stk, (t_triconsumer) stat3b_item_count_not_high, stat, bound);
 	stat3b_print(stat);
 }
