@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 18:13:31 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/10 14:50:02 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/10 17:23:05 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,30 @@
 #include "two_stks.h"
 #include "stat3b.h"
 #include <limits.h>
+
+static void	swap_a_maybe_b(t_two_stks *stks)
+{
+	int		*curr[2]; 
+	
+	curr[0] = (int *) ft_stack_peek(stks->b);
+	curr[1] = (int *) ft_stack_peek_next(stks->b);
+	if (curr[0] && curr[1] && *curr[0] < *curr[1])
+		ss(stks);
+	else
+		sa(stks);
+}
+
+static void	swap_b_maybe_a(t_two_stks *stks)
+{
+	int		*curr[2]; 
+	
+	curr[0] = (int *) ft_stack_peek(stks->a);
+	curr[1] = (int *) ft_stack_peek_next(stks->a);
+	if (curr[0] && curr[1] && *curr[0] > *curr[1])
+		ss(stks);
+	else
+		sb(stks);
+}
 
 static void	sort3_e3(t_two_stks *stks, t_stat3b *stat)
 {
@@ -27,28 +51,28 @@ static void	sort3_e3(t_two_stks *stks, t_stat3b *stat)
 	if (*item[0] == stat->min)
 	{
 		pb(stks);
-		sa(stks);
+		swap_a_maybe_b(stks);
 		pa(stks);
 	}
 	else if (*item[0] == stat->max)
 	{
-		sa(stks);
+		swap_a_maybe_b(stks);
 		pb(stks);
-		sa(stks);
+		swap_a_maybe_b(stks);
 		pa(stks);
 		if (*item[1] != stat->min)
-			sa(stks);
+			swap_a_maybe_b(stks);
 	}
 	else
 	{
 		if (*item[1] == stat->min)
-			sa(stks);
+			swap_a_maybe_b(stks);
 		else
 		{
 			pb(stks);
-			sa(stks);
+			swap_a_maybe_b(stks);
 			pa(stks);
-			sa(stks);
+			swap_a_maybe_b(stks);
 		}
 	}
 }
@@ -66,7 +90,7 @@ static void	sort3_e4(t_two_stks *stks)
 		item[1] = ft_stack_peek_next(stks->a);
 		if (item[1] && *item[0] > *item[1])
 		{
-			sa(stks);
+			swap_a_maybe_b(stks);
 			continue ;
 		}
 		else
@@ -77,7 +101,7 @@ static void	sort3_e4(t_two_stks *stks)
 			if (item[2] && *item[0] < *item[2])
 				rb(stks);
 			else if (item[1] && *item[0] < *item[1])
-				sb(stks);
+				swap_b_maybe_a(stks);
 		}
 		i++;
 	}
@@ -88,7 +112,7 @@ static void	sort3_e4(t_two_stks *stks)
 		item[1] = ft_stack_peek_next(stks->b);
 		if (item[1] && *item[0] < *item[1])
 		{
-			sb(stks);
+			swap_b_maybe_a(stks);
 			continue ;
 		}
 		else
@@ -103,7 +127,7 @@ static void	sort3_le4(t_two_stks *stks, t_stat3b *stat)
 {
 	ft_puterrl("sort3_le4");
 	if (stat->len == 2)
-		sa(stks);
+		swap_a_maybe_b(stks);
 	else if (stat->len == 3)
 		sort3_e3(stks, stat);
 	else

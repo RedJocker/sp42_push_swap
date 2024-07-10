@@ -6,13 +6,18 @@
 #    By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/30 00:04:22 by maurodri          #+#    #+#              #
-#    Updated: 2024/07/10 15:29:29 by maurodri         ###   ########.fr        #
+#    Updated: 2024/07/10 16:53:47 by maurodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ARG=""
 NUM=""
 CASES="3 5 100 500"
+declare -A LIMITS
+LIMITS["3"]="2"
+LIMITS["5"]="11"
+LIMITS["100"]="899"
+LIMITS["500"]="6100" 
 for CASE in $CASES; do
 	echo "case: $CASE"
 	for i in $(seq 100); do
@@ -23,8 +28,10 @@ for CASE in $CASES; do
 		#echo "$RES"
 		echo "num $NUM $OK" 
 		#echo "$ARG"
-		#if (( $NUM > 12 )); then
-		#	echo "$ARG"
-		#fi
+		if (( $NUM > LIMITS["$CASE"] )); then
+			echo "$ARG" | tr '\n' ' '
+			echo ""
+		fi
 	done
 done
+

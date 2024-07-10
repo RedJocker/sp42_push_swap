@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 02:20:41 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/07 14:20:24 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/10 16:36:10 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	swap_a_maybe_b(t_two_stks *stks, int *blimit)
 		sa(stks);
 }
 
-void	swap_b_maybe_a(t_two_stks *stks, int *alimit)
+static void	swap_b_maybe_a(t_two_stks *stks, int *alimit)
 {
 	int		*curr[2]; 
 

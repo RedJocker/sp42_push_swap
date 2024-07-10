@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 19:58:40 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/10 14:59:26 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/10 16:01:11 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,39 +16,7 @@
 #include "limits.h"
 #include "stat3b.h"
 #include "ft_util.h"
-
-int	item_higher(int *item, t_stat3b *stat)
-{
-	int	limit[2];
-
-	if (item == NULL)
-		return (0);
-	limit[0] = (int)(stat->min + (2 * stat->mean3));
-	limit[1] = (int)stat->max;
-	return (*item >= limit[0] && *item <= limit[1]);
-}
-
-int	item_middle(int *item, t_stat3b *stat)
-{
-	int	limit[2];
-
-	if (item == NULL)
-		return (0);
-	limit[0] = (int)(stat->min + stat->mean3);
-	limit[1] = (int)(stat->min + (2 * stat->mean3)) - 1;
-	return (*item >= limit[0] && *item <= limit[1]);
-}
-
-int	item_lower(int *item, t_stat3b *stat)
-{
-	int	limit[2];
-
-	if (item == NULL)
-		return (0);
-	limit[0] = (int)(stat->min);
-	limit[1] = (int)(stat->min + stat->mean3) - 1;
-	return (*item >= limit[0] && *item <= limit[1]);
-}
+#include "item.h"
 
 void	stat3b_print(t_stat3b *stat)
 {
@@ -102,14 +70,6 @@ static void	stat3b_item_process(int *item, t_stat3b *stat, int bound[2])
 	stat->len++;
 }
 
-static void	stat3b_item_count_not_high(int *item, t_stat3b *stat, int bound[2])
-{
-	if (stat == NULL || *item < bound[0] || *item > bound[1])
-		return ;
-	if (!item_higher(item, stat))
-		stat->len_not_high++;
-}
-
 void	stat3b_compute(t_stat3b *stat, t_stack stk, int bound[2])
 {
 	stat3b_init(stat);
@@ -124,6 +84,6 @@ void	stat3b_compute(t_stat3b *stat, t_stack stk, int bound[2])
 	}
 	stat->mean3 = (stat->len * stat->avg) / (3 * stat->avg);
 	ft_stack_foreachbiarg(
-		stk, (t_triconsumer) stat3b_item_count_not_high, stat, bound);
+		stk, (t_triconsumer) item_count_not_high, stat, bound);
 	stat3b_print(stat);
 }
