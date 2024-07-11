@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 20:02:28 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/10 15:29:55 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/11 01:57:21 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,25 @@ static int	has_duplicates(t_psargs *psargs)
 	return (0);
 }
 
+int	psargs_normalize(t_psargs *psargs)
+{
+	int **arr;
+	int i;
+	
+	arr = ft_calloc(psargs->len, sizeof(int *));
+	if (!arr)
+		return (0);
+	i = -1;
+	while (++i < psargs->len)
+		arr[i] = psargs->iarr + i;
+	ft_intarr_sort(arr, psargs->len);
+	i = -1;
+	while (++i < psargs->len)
+		*arr[i] = i;
+	return (1);
+}
+
+
 int	psargs_init(t_psargs *out_psargs, char **in_args, int len)
 {
 	int			is_ok;
@@ -67,18 +86,9 @@ int	psargs_init(t_psargs *out_psargs, char **in_args, int len)
 		}
 		out_psargs->len++;
 	}
-	is_ok = (
-			is_ok && (!has_duplicates(out_psargs)));
+	is_ok = (is_ok && (!has_duplicates(out_psargs)));
+	is_ok = is_ok && psargs_normalize(out_psargs);
 	return (is_ok);
-}
-
-void	psargs_normalize(t_psargs *psargs)
-{
-	(void) psargs;
-	// TODO
-	// create arr pointer
-	// sort arr pointer
-	// change values pointed to by position on arr pointer
 }
 
 void	psargs_clean(t_psargs *out_psargs)
