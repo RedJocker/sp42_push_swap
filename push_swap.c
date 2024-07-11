@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:44:51 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/10 14:44:02 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/11 02:13:48 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "two_stks.h"
 #include "ft_util.h"
 #include "limits.h"
-#include "sort3.h"
+#include "sort3b.h"
 
 static void	anonymous_fun(t_two_stks *stks)
 {
