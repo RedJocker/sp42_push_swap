@@ -6,7 +6,7 @@
 #    By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/05 20:20:04 by maurodri          #+#    #+#              #
-#    Updated: 2024/07/11 02:11:02 by maurodri         ###   ########.fr        #
+#    Updated: 2024/07/11 19:54:46 by maurodri         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -16,8 +16,15 @@ LIBFT := $(LIBFT_DIR)/libft.a
 FILES := main.c \
 	push_swap.c \
 	two_stks.c \
+	two_stks_push.c \
+	two_stks_revrotate.c \
+	two_stks_rotate.c \
+	two_stks_swap.c \
 	psargs.c \
 	sort3b.c \
+	sort3b_partition.c \
+	sort3b_return.c \
+	sort3b_le4.c \
 	stat3b.c \
 	item.c
 
