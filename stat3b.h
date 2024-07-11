@@ -6,10 +6,9 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 19:52:16 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/07 20:11:57 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/11 02:21:44 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef STAT3B_H
 # define STAT3B_H
@@ -25,9 +24,8 @@ typedef struct s_stat3b
 	int		*last;
 	int		len;
 	int		is_sorted;
-	int     is_revsorted;
+	int		is_revsorted;
 	int		len_not_high;
-	
 }	t_stat3b;
 
 void	stat3b_init(t_stat3b *out_stat);

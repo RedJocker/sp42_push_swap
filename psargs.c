@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 20:02:28 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/11 01:57:21 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/11 02:19:27 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ static int	has_duplicates(t_psargs *psargs)
 
 int	psargs_normalize(t_psargs *psargs)
 {
-	int **arr;
-	int i;
-	
+	int	**arr;
+	int	i;
+
 	arr = ft_calloc(psargs->len, sizeof(int *));
 	if (!arr)
 		return (0);
@@ -64,7 +64,6 @@ int	psargs_normalize(t_psargs *psargs)
 		*arr[i] = i;
 	return (1);
 }
-
 
 int	psargs_init(t_psargs *out_psargs, char **in_args, int len)
 {
@@ -87,7 +86,7 @@ int	psargs_init(t_psargs *out_psargs, char **in_args, int len)
 		out_psargs->len++;
 	}
 	is_ok = (is_ok && (!has_duplicates(out_psargs)));
-	is_ok = is_ok && psargs_normalize(out_psargs);
+	is_ok = (is_ok && (psargs_normalize(out_psargs)));
 	return (is_ok);
 }
 

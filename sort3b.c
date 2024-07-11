@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 18:13:31 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/10 17:23:05 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/11 02:24:51 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 static void	swap_a_maybe_b(t_two_stks *stks)
 {
-	int		*curr[2]; 
-	
+	int	*curr[2];
+
 	curr[0] = (int *) ft_stack_peek(stks->b);
 	curr[1] = (int *) ft_stack_peek_next(stks->b);
 	if (curr[0] && curr[1] && *curr[0] < *curr[1])
@@ -31,8 +31,8 @@ static void	swap_a_maybe_b(t_two_stks *stks)
 
 static void	swap_b_maybe_a(t_two_stks *stks)
 {
-	int		*curr[2]; 
-	
+	int	*curr[2];
+
 	curr[0] = (int *) ft_stack_peek(stks->a);
 	curr[1] = (int *) ft_stack_peek_next(stks->a);
 	if (curr[0] && curr[1] && *curr[0] > *curr[1])
