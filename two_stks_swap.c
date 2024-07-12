@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 19:46:26 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/11 19:47:44 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/11 20:36:37 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,12 @@ void	sa(t_two_stks *stks)
 {
 	stack_swap(stks->a);
 	ft_putendl("sa");
-	ft_puterrl("sa");
 }
 
 void	sb(t_two_stks *stks)
 {
 	stack_swap(stks->b);
 	ft_putendl("sb");
-	ft_puterrl("sb");
 }
 
 void	ss(t_two_stks *stks)
@@ -44,5 +42,4 @@ void	ss(t_two_stks *stks)
 	stack_swap(stks->a);
 	stack_swap(stks->b);
 	ft_putendl("ss");
-	ft_puterrl("ss");
 }

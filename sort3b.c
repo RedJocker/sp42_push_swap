@@ -6,12 +6,11 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 18:13:31 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/11 19:34:54 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/11 20:51:46 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "collection/ft_stack.h"
-#include "ft_stdio.h"
 #include "ft_util.h"
 #include "two_stks.h"
 #include "stat3b.h"
@@ -48,7 +47,6 @@ void	sort3b_sort(t_two_stks *stks, int bound[2])
 	int			partition[2];
 
 	stat3b_compute(&stat, stks->a, bound);
-	two_stks_print(stks);
 	if (stat.is_sorted)
 		return ;
 	if (stat.len == 3 && bound[0] == INT_MIN && bound[1] == INT_MAX)
@@ -56,7 +54,6 @@ void	sort3b_sort(t_two_stks *stks, int bound[2])
 	if (stat.len <= 4)
 		return (sort3_le4(stks, &stat));
 	sort3b_partition(stks, &stat);
-	two_stks_print(stks);
 	sort3_rotate_high(stks, &stat);
 	partition[0] = stat.min + (2 * stat.mean3);
 	partition[1] = stat.max;

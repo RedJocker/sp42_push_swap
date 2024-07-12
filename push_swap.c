@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 22:44:51 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/11 02:13:48 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/11 20:38:40 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,7 @@ int	testable_main(int argc, char *argv[])
 	if (is_parseok)
 	{
 		two_stks_init(stks, &psargs);
-		ft_puterrl("START");
-		two_stks_print(stks);
 		two_stks_sort(stks, (t_consumer) anonymous_fun);
-		two_stks_print(stks);
-		ft_puterrl("END");
 	}
 	else
 		ft_puterrl("Error");

@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 19:48:21 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/11 19:49:02 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/11 20:34:05 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	pa(t_two_stks *stks)
 	elem = ft_stack_pop(stks->b);
 	stks->a = ft_stack_push(stks->a, elem);
 	ft_putendl("pa");
-	ft_puterrl("pa");
 }
 
 void	pb(t_two_stks *stks)
@@ -31,5 +30,4 @@ void	pb(t_two_stks *stks)
 	elem = ft_stack_pop(stks->a);
 	stks->b = ft_stack_push(stks->b, elem);
 	ft_putendl("pb");
-	ft_puterrl("pb");
 }

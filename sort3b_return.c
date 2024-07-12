@@ -6,20 +6,17 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 19:19:48 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/11 19:23:22 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/11 20:53:47 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "collection/ft_stack.h"
-#include "ft_stdio.h"
 #include "sort3b.h"
 
 void	sort3_return_a_middle(t_two_stks *stks, t_stat3b *stat)
 {
 	int	*current;
 
-	ft_puterrl("return_a_middle");
-	stat3b_print(stat);
 	current = ft_stack_peek(stks->b);
 	while (item_middle(current, stat))
 	{
@@ -32,8 +29,6 @@ void	sort3_return_a_lower(t_two_stks *stks, t_stat3b *stat)
 {
 	int	*current;
 
-	ft_puterrl("return_a_lower");
-	stat3b_print(stat);
 	current = ft_stack_peek(stks->b);
 	while (item_lower(current, stat))
 	{
@@ -54,7 +49,6 @@ void	sort3_rotate_high(t_two_stks *stks, t_stat3b *stat)
 	int	*top;
 	int	*bottom;
 
-	ft_puterrl("rotate_high");
 	top = ft_stack_peek(stks->a);
 	bottom = ft_stack_peek_last(stks->a);
 	if (item_higher(top, stat) && item_higher(bottom, stat))
