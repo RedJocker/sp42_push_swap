@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 20:02:28 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/11 02:19:27 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/12 00:11:40 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	psargs_normalize(t_psargs *psargs)
 	i = -1;
 	while (++i < psargs->len)
 		*arr[i] = i;
+	free(arr);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 15:31:38 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/10 16:02:47 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/12 01:41:54 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	item_higher(int *item, t_stat3b *stat)
 
 	if (item == NULL)
 		return (0);
-	limit[0] = (int)(stat->min + (2 * stat->mean3));
+	limit[0] = (int)(stat->min + (2.0 * stat->mean3));
 	limit[1] = (int)stat->max;
 	return (*item >= limit[0] && *item <= limit[1]);
 }
@@ -38,8 +38,8 @@ int	item_middle(int *item, t_stat3b *stat)
 
 	if (item == NULL)
 		return (0);
-	limit[0] = (int)(stat->min + stat->mean3);
-	limit[1] = (int)(stat->min + (2 * stat->mean3)) - 1;
+	limit[0] = (int)(stat->min + (1.0 * stat->mean3));
+	limit[1] = (int)(stat->min + (2.0 * stat->mean3)) - 1;
 	return (*item >= limit[0] && *item <= limit[1]);
 }
 
@@ -50,6 +50,6 @@ int	item_lower(int *item, t_stat3b *stat)
 	if (item == NULL)
 		return (0);
 	limit[0] = (int)(stat->min);
-	limit[1] = (int)(stat->min + stat->mean3) - 1;
+	limit[1] = (int)(stat->min + (1.0 * stat->mean3)) - 1;
 	return (*item >= limit[0] && *item <= limit[1]);
 }

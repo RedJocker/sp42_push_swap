@@ -6,7 +6,7 @@
 #    By: maurodri <maurodri@student.42sp...>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/05 20:20:04 by maurodri          #+#    #+#              #
-#    Updated: 2024/07/11 19:54:46 by maurodri         ###   ########.fr        #
+#    Updated: 2024/07/12 13:13:15 by maurodri         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -25,6 +25,7 @@ FILES := main.c \
 	sort3b_partition.c \
 	sort3b_return.c \
 	sort3b_le4.c \
+	sort3b_e4.c \
 	stat3b.c \
 	item.c
 

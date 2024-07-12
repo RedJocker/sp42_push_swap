@@ -6,7 +6,7 @@
 /*   By: maurodri <maurodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 18:13:31 by maurodri          #+#    #+#             */
-/*   Updated: 2024/07/11 20:51:46 by maurodri         ###   ########.fr       */
+/*   Updated: 2024/07/12 01:41:59 by maurodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ void	sort3b_sort(t_two_stks *stks, int bound[2])
 		return (sort3_le4(stks, &stat));
 	sort3b_partition(stks, &stat);
 	sort3_rotate_high(stks, &stat);
-	partition[0] = stat.min + (2 * stat.mean3);
+	partition[0] = stat.min + (2.0 * stat.mean3);
 	partition[1] = stat.max;
 	sort3b_sort(stks, partition);
 	sort3_return_a_middle(stks, &stat);
 	partition[1] = partition[0] - 1;
-	partition[0] = stat.min + (stat.mean3);
+	partition[0] = stat.min + (1.0 * stat.mean3);
 	sort3b_sort(stks, partition);
 	sort3_return_a_lower(stks, &stat);
 	partition[1] = partition[0] - 1;
